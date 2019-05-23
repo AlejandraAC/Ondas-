@@ -76,7 +76,7 @@ El código funciona para un modelo geológico de una capa y un semi-espacio. Se 
   
     Q = 2π f[Hz] ε[H/m] / α[S/m].
     
-Con ello dichos parámetros se calcula también el intervalo de nodos de la malla "Δx = Δz":
+A partir de estos parámetros, también se calcula intervalo de nodos de la malla "Δx = Δz" de la siguiente manera:
     
     v_min = √(1/(Ϗε)),
     λ_min = ( v_min/f_max ),
