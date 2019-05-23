@@ -6,9 +6,9 @@ Este código fue basado y modificado del código realizado por J. Carcione (2015
 Alejandra Alvarado Contreras. 23 de Mayo de 2019. alejandra.alalcon@hotmail.com.
 
 # Ecuaciones utilizadas
-Este programa utiliza una malla escalonada y métodos numéricos para resolver las siguientes ecuaciones de onda
+Este programa utiliza una malla escalonada y métodos numéricos para resolver las siguientes ecuaciones de onda:
 
- * Ecuaciones SH:
+ * Ecuaciones SH
  
  Para un medio viscoelástico e isótropo, las ecuaciones de onda SH con la formulación esfuerzo-velocidad son:
  
@@ -18,7 +18,7 @@ Este programa utiliza una malla escalonada y métodos numéricos para resolver l
      
  donde "v_y" es la velocidad en la dirección de "y", "ρ" es la densidad, "σ_xy" y "σ_yz" son los esfuerzos en las direcciones correspondientes, "f_y" es la fuerza volumétrica en la dirección de "y", "μ" es la constante de rigidez y "η" es la viscosidad.
      
- * Ecuaciones TM:
+ * Ecuaciones TM
  
  Para un medio con pérdidas de energía e isótropo, las ecuaciones del modo TM son:
      
@@ -28,7 +28,17 @@ Este programa utiliza una malla escalonada y métodos numéricos para resolver l
     
  donde "H_y" es el campo magnético en la dirección de "y", "Ϗ" es la permeabilidad magnética,  "E_z" y "E_x" es el campo eléctrico en la dirección corrrespondiente, "M_y" es la fuente magnética en la dirección de "y", "ε" es la permitividad relativa y "α" es la conductividad.
  
- Para discretizar espacialmente las ecuaciones se utiliza el método de diferencias finitas y para la discretización en tiempo se programa el método de Runge Kutta, ambos de cuarto orden. 
+ Con la correspondencia
+  
+    v_y   ↔  H_y
+    σ_yz  ↔ (-E_x )
+    σ_xy  ↔ E_z
+    η ↔  1/α ̂ 
+    μ ↔  1/ε ̂  ̂ 
+    ρ ↔ Ϗ
+    f_y  ↔ - M_y
+
+Para discretizar espacialmente las ecuaciones se utiliza el método de diferencias finitas y para la discretización en tiempo se programa el método de Runge Kutta, ambos de cuarto orden. 
  
  # Pre-requisitos
 El código se realizó utilizando el software Matlab R2018b pero puede ser utilizado con cualquier otra versión de Matlab
