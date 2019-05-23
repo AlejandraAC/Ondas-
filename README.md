@@ -1,10 +1,12 @@
 # Ondas Acústicas-Electromagnéticas
 Este código 2D simula la propagación de ondas viscoelásticas SH y de ondas electromagnéticas del modo TM. 
 
-Alejandra Alvarado Contreras. 23 de Mayo de 2019. alejandra.alalcon@hotmail.com
+Este código fue basado y modificado del código realizado por J. Carcione (2015,p.548) en Fortran 77.
+
+Alejandra Alvarado Contreras. 23 de Mayo de 2019. alejandra.alalcon@hotmail.com.
+.
 
 # Ecuaciones utilizadas
-Este código se realizó para resolver tanto ondas viscoelásticas SH como ondas electromagnéticas TM.
 Este programa utiliza una malla escalonada y métodos numéricos para resolver las siguientes ecuaciones de onda
 
  * Ecuaciones SH:
@@ -15,25 +17,28 @@ Este programa utiliza una malla escalonada y métodos numéricos para resolver l
       δ_t σ_yz = μ (δ_z v_y  - 1/η σ_yz), 
      δ_t σ_xy = μ (δ_x v_y  - 1/η σ_xy). 
      
+ donde "v_y" es la velocidad en la dirección de "y", "ρ" es la densidad, "σ_xy" y "σ_yz" son los esfuerzos en las direcciones correspondientes, "f_y" es la fuerza volumétrica en la dirección de "y", "μ" es la constante de rigidez y "η" es la viscosidad.
+     
  * Ecuaciones TM:
  
  Para un medio con pérdidas de energía e isótropo, las ecuaciones del modo TM son:
      
      δ_t H_y=  1/Ϗ  ( δ_x E_z + δ_z (-E_x ) - M_y ),
-    δ_t (-E_x ) =  1/ε ( δ_z H_y - σ ̂(-E_x )),	
-    δ_t E_z =  1/ε ̂(δ_x H_y - σ ̂E_z ).
-
-
-
-
-
-para discretizar espacialmente las ecuaciones se utiliza el método de diferencias finitas y para la discretización en tiempo se programa el método de Runge Kutta, ambos de cuarto orden. 
-
-El mismo código sirve para modelar ambos tipos de onda, únicamente se modifican los parámetros de la malla y tendido, de la fuente y del modelo geológico.
-Este código fue basado y modificado del código realizado por J. Carcione (2015,p.548) en Fortran 77.
-# Pre-requisitos
+    δ_t (-E_x ) =  1/ε ( δ_z H_y - α ̂ ̂(-E_x )),	
+    δ_t E_z =  1/ε ̂(δ_x H_y - α ̂ ̂E_z ).
+    
+ donde "H_y" es el campo magnético en la dirección de "y", "Ϗ" es la permeabilidad magnética,  "E_z" y "E_x" es el campo eléctrico en la dirección corrrespondiente, "M_y" es la fuente magnética en la dirección de "y", "ε" es la permitividad relativa y "α" es la conductividad.
+ 
+ # Pre-requisitos
 El código se realizó utilizando el software Matlab R2018b pero puede ser utilizado con cualquier otra versión de Matlab
 Para obtener una prueba gratuita del software de 30 días ingrese a la URL "https://es.mathworks.com/campaigns/products/trials/targeted/dan.html"
+ 
+ # Discretización en tiempo y espacio
+ Para discretizar espacialmente las ecuaciones se utiliza el método de diferencias finitas y para la discretización en tiempo se programa el método de Runge Kutta, ambos de cuarto orden. 
+
+El mismo código sirve para modelar ambos tipos de onda, únicamente se modifican los parámetros de la malla y tendido, de la fuente y del modelo geológico.
+
+
 # Ejecutando las pruebas
 Una vez instalado Matlab, se revisan los 4 archivos. 
 
