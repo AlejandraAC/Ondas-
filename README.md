@@ -118,7 +118,7 @@ Para graficar la ondícula se debe seleccionar el caso en cuestión, en este eje
 
 Esta función resuelve las derivadas espaciales del sistema de ecuaciones TM a través del método de diferencias finitas de cuarto orden con la siguiente formulación:
 
-    f^'(x_i) = 〖1/24 f(x_(i-3/2)) - 9/8 f(x_(i-1/2)) + 9/8 f(x_(i+1/2)) - 1/24 f(x_(i+3/2))〗/ h
+    f'^(x_i) = 〖1/24 f(x_(i-3/2)) - 9/8 f(x_(i-1/2)) + 9/8 f(x_(i+1/2)) - 1/24 f(x_(i+3/2))〗/ h
 
 donde "h" representa el intervalo "Δx o  Δz", f^'(x_i)" es la derivada espacial del campo magnético o eléctrico, y las constantes "∓1/24" y "∓9/8" representan los coeficientes de cuarto orden del método.
 
