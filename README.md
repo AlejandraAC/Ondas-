@@ -1,16 +1,18 @@
 # Ondas Acústicas-Electromagnéticas
-Este código 2D simula la propagación de ondas viscoelásticas SH y de ondas electromagnéticas del modo TM. 
-El código se basa en las ecuaciones de onda SH y TM para medios reológicos. Para discretizar espacialmente las ecuaciones se utiliza el método de diferencias finitas y para la discretización en tiempo se programa el método de Runge Kutta, ambos de cuarto orden. 
+El código 2D simula la propagación de ondas viscoelásticas SH y de ondas electromagnéticas del modo TM. 
+Para discretizar espacialmente las ecuaciones se utiliza el método de diferencias finitas y para la discretización en tiempo se programa el método de Runge Kutta, ambos de cuarto orden. 
 # Pre-requisitos
 El código se realizó utilizando el software Matlab R2018b pero puede ser utilizado con cualquier otra versión de Matlab
 Para obtener una prueba gratuita del software de 30 días ingrese a la URL "https://es.mathworks.com/campaigns/products/trials/targeted/dan.html"
 # Ejecutando las pruebas
 Una vez instalado Matlab, en la carpeta Ondas Acústicas/Electromagnéticas vienen 4 archivos. 
-\\
+
 "SH.m" El main para el ejemplo viscoelástico
-\\
+
 "TM.m" El main para el ejemplo electromagnético
+
 "H.m" Subrutina para la ejecución del método de diferencias finitas
+
 "Wavelet.m" Subrutina para la ejecución del impulso de onda
 
 Como ejemplo, se explican los datos que se ingresan para ejecutar el ejemplo electromagnético "SH.m" se siguen los siguientes pasos:
