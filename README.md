@@ -157,7 +157,7 @@ Por ejemplo, para obtener los resultados del campo magnético se seleccionan las
            caxis([-5e-12 5e-12]) %campo magnético v2 <-> H2
            ... 
          %Titulos 
-         % title(['Campo Magnético H_2 en t=' num2str(a) '[ns]'],'Fontsize',19,'FontName','Arial', 'FontWeight',
+         % title(['Campo Magnético H_2 en t=' num2str(a) '[ns]'],'Fontsize',19,'FontName','Arial', 'FontWeight','bold','FontAngle','italic','HorizontalAlignment','center')
            ...
 
  * Ejecución del programa 
