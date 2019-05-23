@@ -16,12 +16,7 @@ El prototipo computacional utiliza una malla escalonada y métodos numéricos pa
     δ_t σ_yz =  μ (δ_z v_y  - 1/η σ_yz), 
     δ_t σ_xy =  μ (δ_x v_y  - 1/η σ_xy). 
     
-    donde "v_y" es la velocidad en la dirección de "y",
-    "ρ" es la densidad, 
-    "σ_xy" y "σ_yz" son los esfuerzos en las direcciones correspondientes, 
-    "f_y" es la fuerza volumétrica en la dirección de "y", 
-    "μ" es la constante de rigidez y 
-    "η" es la viscosidad. 
+donde "v_y" es la velocidad en la dirección de "y", "ρ" es la densidad, "σ_xy" y "σ_yz" son los esfuerzos en las direcciones correspondientes, "f_y" es la fuerza volumétrica en la dirección de "y",  "μ" es la constante de rigidez y "η" es la viscosidad. 
      
  * Ecuaciones TM
  
@@ -31,7 +26,7 @@ El prototipo computacional utiliza una malla escalonada y métodos numéricos pa
     δ_t (-E_x) =  1/ε ( δ_z H_y - α ̂(-E_x) ),	
     δ_t E_z    =  1/ε ̂(δ_x H_y - α ̂E_z ),
     
-    donde "H_y" es el campo magnético en la dirección de "y", "Ϗ" es la permeabilidad magnética,  "E_z" y "E_x" es el campo eléctrico en la dirección corrrespondiente, "M_y" es la fuente magnética en la dirección de "y", "ε" es la permitividad relativa y "α" es la conductividad.
+donde "H_y" es el campo magnético en la dirección de "y", "Ϗ" es la permeabilidad magnética,  "E_z" y "E_x" es el campo eléctrico en la dirección corrrespondiente, "M_y" es la fuente magnética en la dirección de "y", "ε" es la permitividad relativa y "α" es la conductividad.
     
  Con la correspondencia
   
@@ -73,7 +68,7 @@ Para simular la adquisición se decide la cantidad de dipolos receptores a lo la
 
     LM = (LT + 2 * nab),
     
-    donde "LM" es la longitud de la malla, "LT" es la longitud del tendido y "nab" es el tamaño del vector absorbente, que en este caso fue de 50 nodos.
+donde "LM" es la longitud de la malla, "LT" es la longitud del tendido y "nab" es el tamaño del vector absorbente, que en este caso fue de 50 nodos.
  
  * Parámetros de la fuente
  
@@ -91,7 +86,7 @@ A partir de estos parámetros, también se calcula el intervalo de nodos de la m
     λ_min = v_min/f_max,
     Δx = Δz = λ_min/n,
     
-    donde "v_min" es la velocidad mínima de las dos capas, la "f_max" son 100 MHz y "n" es el número de nodos necesarios para discretizar la longitud de onda mínima, que por similitud al ejemplo de J. Carcione (2015) se toman 9 nodos. 
+donde "v_min" es la velocidad mínima de las dos capas, la "f_max" son 100 MHz y "n" es el número de nodos necesarios para discretizar la longitud de onda mínima, que por similitud al ejemplo de J. Carcione (2015) se toman 9 nodos. 
  
  * Parámetros absorbentes
  
@@ -101,8 +96,7 @@ El código maneja fronteras absorbentes para evitar reflexiones de onda, para cr
     for i=1:nab
         ab(i)=r^i;
     end
-    
-    Donde "r" es el factor de atenuación inicial y "ab" el vector de atenuación.
+Donde "r" es el factor de atenuación inicial y "ab" el vector de atenuación.
 
  * Creación de los snapshots 
  
@@ -117,7 +111,7 @@ Así mismo se resuelve el método de Runge Kutta de cuarto orden para la discret
     Δ_3 = H (V^n + dt/2 Δ_2) + f^(n+1/2),
     Δ_4 = H (V^n + dt Δ_3) + f^(n+1) .
     
-    donde "Δ's" son las funciones de recurrencia, "H" representa el sistema de ecuaciones TM discretizadas espacialmente con el método de diferencias finitas programados en la *subrutina H* y "f" es la fuente implementada a través de la *subrutina wavelet*.
+donde "Δ's" son las funciones de recurrencia, "H" representa el sistema de ecuaciones TM discretizadas espacialmente con el método de diferencias finitas programados en la *subrutina H* y "f" es la fuente implementada a través de la *subrutina wavelet*.
    
 Con ello, se resuelven los valores de campo magnético H_2[A/m] y campo eléctrico E_3 y -E_1 [V/m] durante el tiempo de muestreo total, que en este caso es de 150 (ns).
 
@@ -139,10 +133,7 @@ Para graficar la ondícula se debe seleccionar el caso en cuestión, en este eje
 Esta función resuelve las derivadas espaciales del sistema de ecuaciones TM a través del método de diferencias finitas de cuarto orden con la siguiente formulación:
 
     f^'(x_i)=  〖 1/24 f(x_(i-3/2)) - 9/8 f(x_(i-1/2)) + 9/8 f(x_(i+1/2)) - 1/24 f(x_(i+3/2)) 〗/ h
-    donde 
-    
-    "f^'(x_i)" es la derivada espacial ya sea del campo magnético o eléctrico, y las constantes "∓1/24" y "∓9/8" representan los    coeficientes de cuarto orden del método.
-
+donde "f^'(x_i)" es la derivada espacial ya sea del campo magnético o eléctrico, y las constantes "∓1/24" y "∓9/8" representan los    coeficientes de cuarto orden del método.
 
  # Resultados, Gráficas de Snapshots y Radargrama
  
