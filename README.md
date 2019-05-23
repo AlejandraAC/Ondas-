@@ -15,20 +15,21 @@ Una vez instalado Matlab, en la carpeta Ondas Acústicas/Electromagnéticas vien
 
 "Wavelet.m" Subrutina para la ejecución del impulso de onda
 
-Como ejemplo, se explican los datos que se ingresan para ejecutar el ejemplo electromagnético "SH.m" se siguen los siguientes pasos:
+Como ejemplo, se explica la estructura del ejemplo electromagnético "TM.m":
+
   *1. Parámetros de la malla y del tendido
   
-  El código se basa en datos reales de una adquisicón GPR (Georadar de        Penetración Terrestre) utilizando el modo biestático con polarización H o modo TM.
-  Para simular el modelo geológico, primero se decide el número de dipolos receptores a utilizar y el largo del tendido que cubra el espaciamiento entre ellos. Después se decide el ancho de las fronteras absorbentes y se calcula la dimensión total de la malla numérica "nx(filas)", "nz(columnas)", "dx" y "dz" (intervalos entre nodos).
+  El código se basa en datos reales de una adquisicón GPR (Georadar de Penetración Terrestre) utilizando el modo biestático con polarización H o modo TM.
+  Para simular la adquisición se decide el número de dipolos receptores a utilizar y el largo del tendido que cubra el espaciamiento entre ellos. Después se decide el ancho de las fronteras absorbentes y se calcula la dimensión total de la malla numérica "nx(filas)", "nz(columnas)", "dx" y "dz" (intervalos entre nodos).
   
   *2. Parámetros de la fuente
   
-  Se decide la frecuencia que se utilizará para simular la fuente impulso, que en este ejemplo fue de 100 MHz.
+  Se decide la frecuencia que se utilizará para simular la fuente impulso. En este ejemplo fue de 100 MHz.
   
   *3. Modelo Heterogéneo
   
   El código funciona para un modelo geológico de una capa y un semi-espacio.
-  Se decide cuál es el tipo de roca de cada capa y se obtienen las propiedades de conductividad[s/m], permeabilidad magnética[H/m] y permitividad dieléctrica [F/m] y se obtiene su factor de calidad (Q) 
+  Se decide cuál es el tipo de roca de cada capa y se obtienen las propiedades de conductividad[s/m], permeabilidad magnética[H/m] y permitividad dieléctrica [F/m] y se obtiene el factor de calidad (Q). 
   
   *4.Parámetros absorbentes
   
@@ -36,12 +37,14 @@ Como ejemplo, se explican los datos que se ingresan para ejecutar el ejemplo ele
   
   *5. Subrutina Wavelet
   
-  Con esta subrutina se crea la fuente de impulso la cual es una función que genera una ondícula gaussiana, la cual utiliza los datos de frecuencia ingresados y los de muestreo en el tiempo "dt"
+  Se crea la fuente impulso, la cual es una función que genera una ondícula gaussiana (Carcione, J,2006). Esta subrutina utiliza los datos de frecuencia y del muestreo en el tiempo "dt".
   
   *6. Creación de los snapshots
   
+  Se crea un ciclo para generar cada uno de los snapshots. Dentro del mismo se crean las fronteras absorbentes y se programa el método de Runge Kutta de cuarto orden, el cual utiliza dentro de sus funciones de recurrencia, los operadores diferenciales del método de diferencias finitas de cuarto orden programados en la *subrutina H*.
+  
+  Con ello se resuelven los valores de campo magnético H_2[A/m], campo eléctrico E_3 y -E_1 [V/m]. 
   El código realiza 250 snapshots pero sólo desplega 25 de ellos para observar el comportamiento de la onda. 
-  Se crea un ciclo para generar cada uno de los snapshots, dentro del cual se crean las fronteras absorbentes, y se resuelven los valores de campo magnético H_2[A/m], campo eléctrico E_3 y -E_1  [V/m] a través del método de Runge Kutta de cuarto orden, el cual utiliza dentro de sus funciones de recurrencia, los operadores diferenciales del método de diferencias finitas de cuarto orden programado con la *subrutina H*.
   
  *7. Matriz de Radiograma
  
@@ -49,7 +52,7 @@ Como ejemplo, se explican los datos que se ingresan para ejecutar el ejemplo ele
  
  *8. Gráfica de Snapshots
  
- Se generan las gráficas del modelo geológico simulado, junto con la línea del contacto entre capas, de las fronteras absorbentes, de la línea receptora y se visualiza a través de ellas la propagación de la onda y los valores resultantes en una escala de colores.
+ Se generan las gráficas del modelo geológico simulado, se dibuja la línea del contacto entre capas, las fronteras absorbentes, la línea receptora. De este modo se visualiza la propagación de la onda y los valores resultantes en una escala de colores.
  
  *9. Gráfica del radiorgrama
  
