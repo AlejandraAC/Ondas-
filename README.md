@@ -1,6 +1,7 @@
 # Ondas Acústicas-Electromagnéticas
 El código 2D simula la propagación de ondas viscoelásticas SH y de ondas electromagnéticas del modo TM. 
 Para discretizar espacialmente las ecuaciones se utiliza el método de diferencias finitas y para la discretización en tiempo se programa el método de Runge Kutta, ambos de cuarto orden. 
+El mismo código sirve para modelar ambos tipos de onda, únicamente se modifican los parámetros de la malla y tendido, de la fuente y del modelo geológico.
 # Pre-requisitos
 El código se realizó utilizando el software Matlab R2018b pero puede ser utilizado con cualquier otra versión de Matlab
 Para obtener una prueba gratuita del software de 30 días ingrese a la URL "https://es.mathworks.com/campaigns/products/trials/targeted/dan.html"
@@ -37,18 +38,14 @@ Como ejemplo, se explica la estructura del ejemplo electromagnético "TM.m":
   
   *5. Subrutina Wavelet
   
-  Se crea la fuente impulso, la cual es una función que genera una ondícula gaussiana (Carcione, J,2006). Esta subrutina utiliza los datos de frecuencia y del muestreo en el tiempo "dt".
+  Se programa la fuente impulso, la cual es una función que genera una ondícula gaussiana (Carcione, J,2006). Esta subrutina utiliza los datos de frecuencia y del muestreo en el tiempo "dt".
   
   *6. Creación de los snapshots
   
-  Se crea un ciclo para generar cada uno de los snapshots. Dentro del mismo se crean las fronteras absorbentes y se programa el método de Runge Kutta de cuarto orden, el cual utiliza dentro de sus funciones de recurrencia, los operadores diferenciales del método de diferencias finitas de cuarto orden programados en la *subrutina H*.
+  Se programa un ciclo para generar cada uno de los snapshots. Dentro del mismo se generan las fronteras absorbentes y se programa el método de Runge Kutta de cuarto orden, el cual utiliza dentro de sus funciones de recurrencia, los operadores diferenciales del método de diferencias finitas de cuarto orden programados en la *subrutina H*.
   
   Con ello se resuelven los valores de campo magnético H_2[A/m], campo eléctrico E_3 y -E_1 [V/m]. 
   El código realiza 250 snapshots pero sólo desplega 25 de ellos para observar el comportamiento de la onda. 
-  
- *7. Matriz de Radiograma
- 
- Para generar el radiograma resultante de la línea de receptores se crea una matriz, la cual va guardando los valores de los dipolos receptores en cada iteración.
  
  *8. Gráfica de Snapshots
  
@@ -56,7 +53,7 @@ Como ejemplo, se explica la estructura del ejemplo electromagnético "TM.m":
  
  *9. Gráfica del radiorgrama
  
- Por último se genera la gráfica del radiorgrama, la cual grafica las trazas de cada uno de los dipolos receptores.
+  Para generar el radiograma resultante de la línea de receptores se genera una matriz que guarda los valores de los dipolos receptores en cada iteración. Esta matriz se grafica en forma de radiorgrama.
   
   
   
