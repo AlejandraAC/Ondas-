@@ -30,7 +30,7 @@ Como ejemplo, se explica la estructura del ejemplo electromagnético "TM.m":
   *3. Modelo Heterogéneo
   
   El código funciona para un modelo geológico de una capa y un semi-espacio.
-  Se decide cuál es el tipo de roca de cada capa y se obtienen las propiedades de conductividad[s/m], permeabilidad magnética[H/m] y permitividad dieléctrica [F/m] y se obtiene el factor de calidad (Q). 
+  Se decide cuál es el tipo de roca de cada capa y se obtienen las propiedades de conductividad[s/m], permeabilidad magnética[H/m], permitividad dieléctrica [F/m] y el factor de calidad (Q). 
   
   *4.Parámetros absorbentes
   
