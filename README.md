@@ -76,10 +76,10 @@ El código funciona para un modelo geológico de una capa y un semi-espacio. Se 
   
     Q = 2π f[Hz] ε[F/m] / α[S/m].
     
-A partir de estos parámetros, también se calcula intervalo de nodos de la malla "Δx = Δz" de la siguiente manera:
+A partir de estos parámetros, también se calcula el intervalo de nodos de la malla "Δx = Δz" de la siguiente manera:
     
     v_min = √(1/(Ϗε)),
-    λ_min = ( v_min/f_max ),
+    λ_min = v_min/f_max,
     Δx = Δz = λ_min/n
  
 donde "v_min" es la velocidad mínima de las dos capas, la "f_max" son 100 MHz y "n" es el número de nodos necesarios para discretizar la longitud de onda mínima, que por similitud al ejemplo de J. Carcione (2015) se toman 9 nodos. 
