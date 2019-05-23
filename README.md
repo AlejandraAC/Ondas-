@@ -1,6 +1,7 @@
 # Ondas Acústicas-Electromagnéticas
 Este código 2D simula la propagación de ondas viscoelásticas SH y de ondas electromagnéticas del modo TM. 
 Para discretizar espacialmente las ecuaciones se utiliza el método de diferencias finitas y para la discretización en tiempo se programa el método de Runge Kutta, ambos de cuarto orden. 
+
 El mismo código sirve para modelar ambos tipos de onda, únicamente se modifican los parámetros de la malla y tendido, de la fuente y del modelo geológico.
 Este código fue basado y modificado del código realizado por J. Carcione (2015,p.548) en Fortran 77.
 # Pre-requisitos
