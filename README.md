@@ -8,7 +8,7 @@ Este código fue basado y modificado del código realizado por J. Carcione (2015
 El código se realizó utilizando el software Matlab R2018b pero puede ser utilizado con cualquier otra versión de Matlab
 Para obtener una prueba gratuita del software de 30 días ingrese a la URL "https://es.mathworks.com/campaigns/products/trials/targeted/dan.html"
 # Ejecutando las pruebas
-Una vez instalado Matlab, en la carpeta Ondas Acústicas/Electromagnéticas vienen 4 archivos. 
+Una vez instalado Matlab, se revisan los 4 archivos. 
 
 "SH.m" El main para el ejemplo viscoelástico
 
