@@ -33,7 +33,7 @@ Como ejemplo, se explica la estructura del ejemplo electromagnético "TM.m":
   El código funciona para un modelo geológico de una capa y un semi-espacio.
   Se decide cuál es el tipo de roca de cada capa y se ingresa el valor de las propiedades de conductividad[s/m], permeabilidad magnética[H/m], permitividad dieléctrica [F/m] y el factor de calidad (Q). 
   
-  * 4.Parámetros absorbentes
+  * 4. Parámetros absorbentes
   
   El código maneja fronteras absorbentes para evitar reflexiones de onda, para crearlas se utiliza un vector con factores de atenuación que disminuyen la amplitud de la onda conforme ésta hace contacto con los cuatro bordes de la malla.
   
@@ -60,8 +60,9 @@ Como ejemplo, se explica la estructura del ejemplo electromagnético "TM.m":
   Carcione, J. (2015). Wave Fields in Real Media Wave Propagation in Anisotropic,
 Anelastic, Porous and Electromagnetic Media. Trieste, Italy:
 Elsevier.
+
   Carcione, J. (2006). Geophysical Software and Algorithms. A spectral numerical
 method for electromagnetic diusion. Geophysics, 71, 11-19.
-doi:10.1190/1.2159050
+doi: 10.1190/1.2159050
   
   
