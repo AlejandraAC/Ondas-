@@ -68,10 +68,14 @@ Para simular la adquisición se decide la cantidad de dipolos receptores y el la
     LM = (LT + 2 * nab),
     
 donde "LM" es la longitud de la malla, "LT" es la longitud del tendido y "nab" es el tamaño de las fronteras absorbentes.
+
+Así mismo se debe posicionar el contacto entre capas y la línea de receptores donde se desee en el mallado.
  
  * Parámetros de la fuente
  
 Se decide la frecuencia que se utilizará para simular la fuente impulso, la discretización en tiempo "dt" y las muestras en el tiempo. En este ejemplo la frecuencia fue de 100 (MHz), el "dt" de 6 (ns) y se realizan 250 muestras. 
+
+También se posiciona la fuente en el mallado.
   
  * Parámetros del modelo geológico
  
@@ -97,26 +101,9 @@ El código maneja fronteras absorbentes para evitar reflexiones de onda, para cr
     end
 Donde "r" es el factor de atenuación inicial y "ab" es el vector de atenuación.
 
- * Creación de los snapshots 
- 
-Se genera un ciclo con 250 muestras. En cada iteración se crean las fronteras absorbentes (2 horizontales y 2 verticales).
+ * Subrutina Wavelet 
 
-Así mismo se resuelve el método de Runge Kutta de cuarto orden para la discretización en el tiempo con la siguiente formulación:
-
-    V^(n+1)=V^n + dt/6 (Δ_1 + 2Δ_2 + 2Δ_3 + Δ_4),
-    donde
-    Δ_1 = H V^n + f^n,
-    Δ_2 = H (V^n + dt/2 Δ_1) + f^(n+1/2),
-    Δ_3 = H (V^n + dt/2 Δ_2) + f^(n+1/2),
-    Δ_4 = H (V^n + dt Δ_3) + f^(n+1) .
-    
-donde "Δ's" son las funciones de recurrencia, "H" representa el sistema de ecuaciones TM discretizadas espacialmente con el método de diferencias finitas programados en la *subrutina H* y "f" es la fuente implementada a través de la *subrutina wavelet*.
-   
-Con ello, se resuelven los valores de campo magnético H_2[A/m] y campo eléctrico E_3 y -E_1 [V/m] durante el tiempo de muestreo total, que en este caso es de 150 (ns).
-
-# Subrutina Wavelet 
-
-Esta función crea una fuente impulso que genera una ondícula gaussiana (J. Carcione ,2006):
+Esta función crea una fuente impulso que genera una ondícula gaussiana establecida por J. Carcione, (2006):
 
     f(t) = exp⁡〖-(Δw^2 (t-t_0)^2))/4〗*cos⁡(ϖ(t-t_0)),
     donde
@@ -125,9 +112,9 @@ Esta función crea una fuente impulso que genera una ondícula gaussiana (J. Car
     ϖ   = 2πF_s  es la frecuencia angular central,
     Δw  = 0.5ϖ es el ancho del pulso.
 
-Para graficar la ondícula se debe seleccionar el caso en cuestión, en este ejemplo se activa el caso electromagnético y se deja comentado el caso viscoelástico.
+Para graficar la ondícula se debe seleccionar el caso en cuestión, en este ejemplo se activa el caso electromagnético y se deja comentado (%) el caso viscoelástico.
 
-# Subrutina H
+ * Subrutina H
 
 Esta función resuelve las derivadas espaciales del sistema de ecuaciones TM a través del método de diferencias finitas de cuarto orden con la siguiente formulación:
 
@@ -135,11 +122,29 @@ Esta función resuelve las derivadas espaciales del sistema de ecuaciones TM a t
 
 donde "h" representa el intervalo "Δx o  Δz", f^'(x_i)" es la derivada espacial del campo magnético o eléctrico, y las constantes "∓1/24" y "∓9/8" representan los coeficientes de cuarto orden del método.
 
- # Resultados, Gráficas de Snapshots y Radargrama
+ * Creación de los snapshots 
  
-El código realiza 250 snapshots pero sólo desplega 25 de ellos para observar el comportamiento de la onda. 
-Para obsverar las gráficas correspondientes a cada componentes de campo, se deben selecciónar las opciones correspondiente.
-Por ejemplo para observar los resultados del campo magnético se seleccionan las siguientes opciones y las del campo eléctrico se dejan comentadas (%):
+Se genera un ciclo con 250 muestras pero se programa que sólo despliegue 25 de ellas para observar el comportamiento de la onda. 
+
+En cada iteración se crean las fronteras absorbentes (2 horizontales y 2 verticales).
+
+Así mismo se resuelve el método de Runge Kutta de cuarto orden para la discretización en el tiempo con la siguiente formulación:
+
+    V^(n+1) = V^n + dt/6 (Δ_1 + 2Δ_2 + 2Δ_3 + Δ_4),
+    donde
+    Δ_1 = H V^n + f^n,
+    Δ_2 = H (V^n + dt/2 Δ_1) + f^(n+1/2),
+    Δ_3 = H (V^n + dt/2 Δ_2) + f^(n+1/2),
+    Δ_4 = H (V^n + dt Δ_3) + f^(n+1) .
+    
+donde "Δ's" son las funciones de recurrencia, "H" representa el sistema de ecuaciones TM discretizadas espacialmente con el método de diferencias finitas en la *subrutina H* y "f" es la fuente implementada a través de la *subrutina wavelet*.
+   
+Con ello, se resuelven los valores de campo magnético H_2[A/m] y campo eléctrico E_3 y -E_1 [V/m] durante el tiempo de muestreo total, que en este caso es de 150 (ns).
+
+ # Resultados, Gráficas de Snapshots y Radargrama
+
+Para obtener los resultados del valor de campo correspondiente, se deben seleccionar distintas opciones al momento de graficar las snapshots.
+Por ejemplo, para obtener los resultados del campo magnético se seleccionan las siguientes opciones:
  
          %Se crea un vector con el tamaño de la matriz correspondiente
            [A,B]=size(transpose(v2));  %campo magnético v2 <-> H2
@@ -156,7 +161,9 @@ Por ejemplo para observar los resultados del campo magnético se seleccionan las
          %Titulos 
          % title(['Campo Magnético H_2 en t=' num2str(a) '[ns]'],'Fontsize',19,'FontName','Arial', 'FontWeight',     'bold','FontAngle','italic','HorizontalAlignment','center')
            ...
-           
+donde los valores de campo eléctrico se dejan comentadas (%)
+
+ * Ejecución del programa 
 Una vez ingresados los datos deseados, para ejecutar programa se presiona "Run" desde el main en "Matlab" y se arrojarán los snapshots y gráficas resultantes para observar el comportamiento de onda.
 
 Se imprimen las gráficas del modelo geológico simulado, junto con la línea del contacto entre capas, las fronteras absorbentes y la línea receptora. De este modo se visualiza la propagación de la onda y los valores resultantes de campo debido a la fuente en una escala de colores.
