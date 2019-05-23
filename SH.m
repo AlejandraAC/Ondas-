@@ -1,44 +1,61 @@
-%Este programa modela ondas SH
-%-------------------------------------------------------------------
+             %UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO. FACULTAD DE INGENIERÍA
+                    %CÓDIGO BASADO Y MODIFICADO DE J.CARCIONE, 2015. 
+       %ELABORADO POR ALVARADO CONTRERAS AEJANDRA PARA OBTENER EL TÍTULO DE
+                      %INGENIERA GEOFÍSICA (Alvarado, 2019)
+ 
+%Este código 2D simula la propagación de ondas viscoelásticas SH y de ondas electromagnéticas del modo TM, 
+%a partir de la correspondencia entre sus valores de campo y propiedades del medio.
 
-% Limpiar el workspace
+%----------------------------------------------------------------------------------------------------------------
+%CASO ACÚSTICO. MODELACIÓN DE LA PROPAGACIÓN DE ONDAS SH EN EL SUBSUELO DE LA AVENIDA
+%PROLONGACIÓN DEL CANAL DE MIRAMONTES, TLALPAN, CIUDAD DE MÉXICO (Alvarado y col, 2019)
+%----------------------------------------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------------------------------
+% Se limpia el workspace
 clear all
-% Cerrar todas las figuras
+% Se cierran todas las figuras
 close all
+%-------------------------------------------------------------------------------------------------------
 
-%-------------------------------------------------------------------
-%PARAMETROS DE LA MALLA
-nx=121; %numero de nodos en x 
-nz=121; %numero de nodos en z
-dx = 1.38; %intervalo entre nodos en x, (m)
-dz = 1.38; %intervalo entre nodos en z, (m)
+%PARAMETROS DE LA MALLA Y DEL TENDIDO
+
+rec=12; %numero de geófonos utilizados
+tend = 91; %largo del tendido %LT (nodos)
+srec = tend/(rec+1); %espaciamiento entre geófonos (nodos)
+nab = 15; %tamaño del vector absorbente (nodos)
+
+%Dimensiones de la malla rectangular
+nx = tend +(2*nab); %numero de nodos en x [m] (filas) %LM
+nz = tend +(2*nab); %numero de nodos en z [m] (columnas) %LM
+
+%Ubicación de las lineas receptoras y del contacto en el modelo geológico
+cont=35; %contacto entre capas
+lr=25; % ubicación de la linea de receptores en el mallado 
+
+%--------------------------------------------------------------------
+
+%PARAMETROS DE LA FUENTE
+freq=25; %Frecuencia central %25Hz
 dt=0.001; %muestreo en el tiempo(s), 1ms
 nstep=250; %numero de muestras de tiempo (ms)
 nsp=nstep; % Cada nsp pasos se almacenara un snapshot
-cont=35; %contacto entre capas 
-nab=15  ; %tamaño del vector absorbente
-%------------------------------------------------------------
-%Adquisición del tendido 
-rec=12; %numero de receptores utilizados
-tend=nx-(2*nab); %largo del tendido
-srec=tend/(rec+1); %espaciamiento entre geófonos 
-lr=25; %linea de receptores en el mallado 
+
+    %ubicacion de la fuente
+    ix=61; %(nodos)
+    iz=30; %(nodos)profundidad de la fuente
+    
 %--------------------------------------------------------------------
-%--------------------------------------------------------------------
-%PARAMETROS DE LA FUENTE
-ix=61; %(nodos)
-iz=30; %(nodos)profundidad de la fuente
-freq=25; %Frecuencia central %Hz
-%--------------------------------------------------------------------
-%--------------------------------------------------------------------
-%MODELO HETEROGENEO
+
+%PARÁMETROS DEL MODELO GEOLÓGICO
+
 % InicializaciOn de las propiedades
 %PROPIEDADES ACUSTICAS y su correspondencia a PROPIEDADES ELECTROMAGNETICAS
 mu = zeros(nx,nz); %mu(rigidez) <-------> 1/permitividad dielectrica 
 rho = zeros(nx,nz); %rho(densidad) <--------> permeabilidad magnetica
 eta = zeros(nx,nz); %eta(viscosidad) <---------> 1/conductividad
 
-% Se llena la malla de las propiedades correspondientes en las dos capas
+%Llenado de la malla con las propiedades correspondientes en las dos capas
 for i=1:nx
     for j=1:nz
 
@@ -47,6 +64,7 @@ for i=1:nx
         rho(i,j)=2812; %kg/m3
         Q=93.582; %factor de calidad de la frecuencia central (Qs = 0.3*v_s = 0.3*311.94 = 93.582)
         eta(i,j)=Q*mu(i,j)/(2*pi*freq); 
+        v1=(mu(1,1)/rho(1,1))^(1/2);  
         
         %SEGUNDA CAPA
          if j>=cont
@@ -54,50 +72,56 @@ for i=1:nx
            mu(i,j)=1929046100; %Pa
             Q=159.924; % (Qs = 0.2*v_s = 0.2*799.62 = 159.924)
             eta(i,j)=Q*mu(i,j)/(2*pi*freq);
+            v3=(mu(cont,cont)/rho(cont,cont))^(1/2);
          end
     end
-end 
+end
+
+%Intervalo entre nodos
+vmin = min(v1,v3); %Se selecciona la velocidad mínima de las dos capas
+lambdamin = vmin/freq; %Se calcula la longitud de onda mínima
+dx = lambdamin/9; %intervalo entre nodos en x, (m)
+dz = lambdamin/9; %intervalo entre nodos en z, (m)
 
 %--------------------------------------------------------------------
-%--------------------------------------------------------------------
+
 %PARAMETROS ABSORBENTES
+
 %Se crea el vector que tendra los factores absorbentes
-%nab = 12; %tamaño del vector absorbente
 r=0.99;
 for i=1:nab
     ab(i)=r^i;
 end 
 
 %----------------------------------------------------------------------
-%-----------------------------------------------------------------------
+
 %FUENTE
+
 %Con la subrutina wavelet se crea la fuente de impulso
 dt2=dt/2; %Se ingresa la mitad de dt para su posterior uso en el metodo de RG
 [f,nw2]=wavelet(dt2,freq);
 nw=nw2/2; %se divide a la mitad nw para su posterior uso en el metodo de RG
 
 %-------------------------------------------------------------------------
-%-------------------------------------------------------------------------
+
+%PARÁMETROS DE LOS MÉTODO NUMÉRICOS
+
 %Pesos de cuarto orden referentes al metodo de diferencias finitas
 x1 = 9/(8*dx);
 x2 = -1/(24*dx);
 z1 = 9/(8*dz);
 z2 = -1/(24*dz);
 
-%------------------------------------------------------------------------
-%------------------------------------------------------------------------
-% Se inicializan las variables 
+% Se inicializan las variables de campo
 %COMPONENTES DE CAMPO ACUSTICO <-----------> CAMPO ELECTROMAGNETICO
 v2 = zeros(nx,nz); %velocidad <---------> Campo magnetico H2 
 s12 = zeros(nx,nz); %Esfuerzo s12 <-------> Campo electrico -E1
 s32 = zeros(nx,nz); %Esfuerzo s32 <------> Campo electrico E3
  s = zeros(nstep,rec); %Matriz de sismogramas 
- L = zeros(3,rec);
  
+%------------------------------------------------------------------------
 
-%------------------------------------------------------------------------
-%------------------------------------------------------------------------
-%Creacion de los 250 snapshots
+%CICLO PARA CREAR LAS SNAPSHOTS
 
 for n=1:nstep
     n1=(n*2)-1; % Numeros impares
@@ -108,8 +132,9 @@ for n=1:nstep
     end
     
     %----------------------------------------------------------------------
-    %----------------------------------------------------------------------
-    %CONDICIONES DE VARIABLE ABSORBENTES:
+    
+    %CONDICIONES DE VARIABLE ABSORBENTES
+    
     %Fronteras horizontales
     for j=1:nab
         j2=j+2;
@@ -133,15 +158,17 @@ for n=1:nstep
     end
     
     %-------------------------------------------------------------------
-    %--------------------------------------------------------------------
+    
     %METODO DE RUNGE-KUTTA
+    
     %Este metodo resuelve las derivadas temporales de la velocidad y los
     %esfuerzos para una onda SH
+    
     %vt^(n+1)= vt^n + dt/6 (D1 + 2D2 + 2D3 + D4)
-    %D1= H(v)+ f^n
+    %D1= H(v^n)+ f^n
     %D2= H(v^n + dt/2 D1) + f^(n+1/2)
     %D3 = H(v^n + dt/2 D2) + f^(n+1/2)
-    %D4 = H(v^n + dt D3) + f^(n+1/2)
+    %D4 = H(v^n + dt D3) + f^(n+1)
     
     %Condiciones iniciales 
     for i=1:nx
@@ -159,9 +186,9 @@ for n=1:nstep
     
     %----------------------------------------------------------------------
     %D1 (Operador Delta1)
-    %D1= H(v) 
+    %D1= H(v^n) 
  
-    %Cï¿½lculo de D1: H(v)= v =(v2a, s12a, s32a)
+    %Calculo de D1: H(v^n)= v =(v2a, s12a, s32a)
     [v2a,s12a,s32a] = H(v2a,s12a,s32a,mu,rho,eta,nx,nz,x1,x2,z1,z2);
     
     %Calculo parcial de vt: 
@@ -185,18 +212,18 @@ for n=1:nstep
         end
     end
     
-    %D1= H(v) + f^n 
+    %D1= H(v^n) + f^n 
     if (n<=nw) 
            %Actualizacion de la velocidad mientras se inyecta la fuente 
            %Componentes impares de la fuente----> valores de dt 
          
            %Calculo parcial de vt
-           %vt^n = vt^n + dt/6 [H(v)]
+           %vt^n = vt^n + dt/6 [H(v^n)]
            %vt^(n+1)= vt^n + (dt/6) f^n
            v2t(ix,iz)=v2t(ix,iz)+dt*f(n1)/6; 
            
            %Se reescribe v para D2 (v^n + dt/2 D1)
-           %v2a^n= v^n + dt/2 [H(v)]
+           %v2a^n= v^n + dt/2 [H(v^n)]
            %v2a = v2a^n + (dt/2) f^n
            v2a(ix,iz)=v2a(ix,iz)+0.5*dt*f(n1);
     end
@@ -324,26 +351,26 @@ for n=1:nstep
     end
     
     %-----------------------------------------------------------------
+    
     %Se renombran los vectores resultantes 
     for i=1:nx
         for j=1:nz
             v2(i,j)=v2t(i,j); 
             s12(i,j)=s12t(i,j);
             s32(i,j)=s32t(i,j);
-           % v2tr(i,j)=transpose(v2t(i,j)); 
         end
     end
     
-    
     %-----------------------------------------------------------------
-    %----------------------------------------------------------------- 
+   
     %MATRIZ DE SISMOGRAMAS
                 for j=1:rec
                 s(n,j)=v2(nab+(j*srec),lr);
                 end
     %-----------------------------------------------------------------
-    %------------------------------------------------------------------
+    
     %GRAFICAS DE SNAPSHOTS
+    
     if (mod(n,10)==0)
         %valor de tiempo de muestreo
         a=dt*n;
@@ -400,7 +427,7 @@ for n=1:nstep
          %  title(['Snapshot de Esfuerzos \sigma_{yz} en t=' num2str(a) 's'],'Fontsize',19,'FontName','Arial', 'FontWeight', 'bold','FontAngle','italic','HorizontalAlignment','center')
              
          %Imprimir y guardar imagenes
-       %  print(n,'-dpng');
+         print(n,'-dpng');
     end   
 end
 
@@ -422,9 +449,26 @@ for j=1:rec
     box off
     %Retomamos el tick y label de la primera figura
     set(h(1),'XTick',25:25:250)
-    xlabel(h(1),'Tiempo [ms]','Fontsize',15,'FontName','Arial','FontWeight', 'bold')
+    xlabel(h(1),'Muestras','Fontsize',15,'FontName','Arial','FontWeight', 'bold')
 end
-            
 
+%-------------------------------------------------------------------
+
+%REFERENCIAS:
+
+%Alvarado, A. (2019). Analogía entre la propagación de ondas acústicas y electromagnéticas 
+%y su aplicación en un prototipo computacional 2D. Tesis de licenciatura, UNAM, Ciudad Universitaria, Cd. Mx.
+
+%Alvarado, A., Lopez Diego, H. C., Uriel Jamaica, M. N., Leonel Velazquez,
+%L. O., Jesus Pulido, M. R., Vilchis, D. y col. (2019). Reporte de los
+%resultados obtenidos de los estudios geofisicos realizados en las inmediaciones
+%de la Avenida Prolongacion Canal de Miramontes, Tlalpan,
+%Ciudad de Mexico. Reporte de Praacticas Profesionales.
+
+%Carcione, J. (2015). Wave Fields in Real Media Wave Propagation in Anisotropic,
+%"Anelastic, Porous and Electromagnetic Media. Trieste, Italy: Elsevier.
+
+%-------------------------------------------------------------------
+           
            
    
