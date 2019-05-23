@@ -62,7 +62,7 @@ Anelastic, Porous and Electromagnetic Media. Trieste, Italy:
 Elsevier.
 
   Carcione, J. (2006). Geophysical Software and Algorithms. A spectral numerical
-method for electromagnetic diusion. Geophysics, 71, 11-19.
+method for electromagnetic diffusion. Geophysics, 71, 11-19.
 doi: 10.1190/1.2159050
   
   
