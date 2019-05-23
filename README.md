@@ -16,7 +16,12 @@ El prototipo computacional utiliza una malla escalonada y métodos numéricos pa
     δ_t σ_yz =  μ (δ_z v_y  - 1/η σ_yz), 
     δ_t σ_xy =  μ (δ_x v_y  - 1/η σ_xy). 
     
-    donde "v_y" es la velocidad en la dirección de "y", "ρ" es la densidad, "σ_xy" y "σ_yz" son los esfuerzos en las direcciones correspondientes, "f_y" es la fuerza volumétrica en la dirección de "y", "μ" es la constante de rigidez y "η" es la viscosidad. 
+    donde "v_y" es la velocidad en la dirección de "y",
+    "ρ" es la densidad, 
+    "σ_xy" y "σ_yz" son los esfuerzos en las direcciones correspondientes, 
+    "f_y" es la fuerza volumétrica en la dirección de "y", 
+    "μ" es la constante de rigidez y 
+    "η" es la viscosidad. 
      
  * Ecuaciones TM
  
