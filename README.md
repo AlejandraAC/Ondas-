@@ -120,11 +120,11 @@ Esta función resuelve las derivadas espaciales del sistema de ecuaciones TM a t
 
     f'^(x_i) = 〖1/24 f(x_(i-3/2)) - 9/8 f(x_(i-1/2)) + 9/8 f(x_(i+1/2)) - 1/24 f(x_(i+3/2))〗/ h
 
-donde "h" representa el intervalo "Δx o  Δz", f^'(x_i)" es la derivada espacial del campo magnético o eléctrico, y las constantes "∓1/24" y "∓9/8" representan los coeficientes de cuarto orden del método.
+donde "h" representa el intervalo "Δx o  Δz", f'^(x_i)" es la derivada espacial del campo magnético o eléctrico, y las constantes "∓1/24" y "∓9/8" representan los coeficientes de cuarto orden del método.
 
  * Creación de los snapshots 
  
-Se genera un ciclo con 250 muestras pero se programa que sólo despliegue 25 de ellas para observar el comportamiento de la onda. 
+Se genera un ciclo con 250 muestras y se decide mostrar sólo 25 de ellas para observar el comportamiento de la onda. 
 
 En cada iteración se crean las fronteras absorbentes (2 horizontales y 2 verticales).
 
