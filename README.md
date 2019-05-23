@@ -130,21 +130,21 @@ En cada iteración se crean las fronteras absorbentes (2 horizontales y 2 vertic
 
 Así mismo se resuelve el método de Runge Kutta de cuarto orden para la discretización en el tiempo con la siguiente formulación:
 
-    V^(n+1) = V^n + dt/6 (Δ_1 + 2Δ_2 + 2Δ_3 + Δ_4),
+    Vt^(n+1) = Vt^n + dt/6 (Δ_1 + 2Δ_2 + 2Δ_3 + Δ_4),
     donde
-    Δ_1 = H V^n + f^n,
+    Δ_1 = H (V^n) + f^n,
     Δ_2 = H (V^n + dt/2 Δ_1) + f^(n+1/2),
     Δ_3 = H (V^n + dt/2 Δ_2) + f^(n+1/2),
     Δ_4 = H (V^n + dt Δ_3) + f^(n+1) .
     
-donde "Δ's" son las funciones de recurrencia, "H" representa el sistema de ecuaciones TM discretizadas espacialmente con el método de diferencias finitas en la *subrutina H* y "f" es la fuente implementada a través de la *subrutina wavelet*.
+donde "Vt=(H_2t, E_3t, -E_1t)" es la dervidada temporal del vector "V=(H_2, E_3, -E_1), "Δ's" son las funciones de recurrencia, "H" representa el sistema de ecuaciones TM discretizadas espacialmente con el método de diferencias finitas en la *subrutina H* y "f" es la fuente implementada a través de la *subrutina wavelet*.
    
 Con ello, se resuelven los valores de campo magnético H_2[A/m] y campo eléctrico E_3 y -E_1 [V/m] durante el tiempo de muestreo total, que en este caso es de 150 (ns).
 
  # Resultados, Gráficas de Snapshots y Radargrama
 
 Para obtener los resultados del valor de campo correspondiente, se deben seleccionar distintas opciones al momento de graficar las snapshots.
-Por ejemplo, para obtener los resultados del campo magnético se seleccionan las siguientes opciones:
+Por ejemplo, para obtener los resultados del campo magnético se seleccionan las opciones de dicho campo y se dejan comentados (%) los de campo eléctrico:
  
          %Se crea un vector con el tamaño de la matriz correspondiente
            [A,B]=size(transpose(v2));  %campo magnético v2 <-> H2
@@ -161,12 +161,11 @@ Por ejemplo, para obtener los resultados del campo magnético se seleccionan las
          %Titulos 
          % title(['Campo Magnético H_2 en t=' num2str(a) '[ns]'],'Fontsize',19,'FontName','Arial', 'FontWeight',     'bold','FontAngle','italic','HorizontalAlignment','center')
            ...
-donde los valores de campo eléctrico se dejan comentadas (%)
 
  * Ejecución del programa 
-Una vez ingresados los datos deseados, para ejecutar programa se presiona "Run" desde el main en "Matlab" y se arrojarán los snapshots y gráficas resultantes para observar el comportamiento de onda.
+Una vez ingresados los datos deseados, para ejecutar el programa se presiona "Run" desde el main en "Matlab" y se arrojarán los snapshots y gráficas resultantes para observar el comportamiento de onda.
 
-Se imprimen las gráficas del modelo geológico simulado, junto con la línea del contacto entre capas, las fronteras absorbentes y la línea receptora. De este modo se visualiza la propagación de la onda y los valores resultantes de campo debido a la fuente en una escala de colores.
+Se imprimen las gráficas del modelo geológico simulado junto con la línea del contacto entre capas, las fronteras absorbentes y la línea receptora. De este modo se visualiza la propagación de la onda y los valores resultantes de campo debido a la fuente en una escala de colores.
  
 Por último, se genera un radargrama donde se observan los valores de campo en los dipolos receptores.
   
