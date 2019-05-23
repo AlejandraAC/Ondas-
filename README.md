@@ -1,9 +1,12 @@
 # Ondas Acústicas-Electromagnéticas
 Este código 2D simula la propagación de ondas viscoelásticas SH y de ondas electromagnéticas del modo TM. 
+
 Alejandra Alvarado Contreras. 23 de Mayo de 2019. alejandra.alalcon@hotmail.com
-#Ecuaciones utilizadas
+
+# Ecuaciones utilizadas
 Este código se realizó para resolver tanto ondas viscoelásticas SH como ondas electromagnéticas TM.
 Este programa utiliza una malla escalonada y métodos numéricos para resolver las siguientes ecuaciones de onda
+
  * Ecuaciones SH:
  
  Para un medio viscoelástico e isótropo, las ecuaciones de onda SH con la formulación esfuerzo-velocidad son:
@@ -16,9 +19,9 @@ Este programa utiliza una malla escalonada y métodos numéricos para resolver l
  
  Para un medio con pérdidas de energía e isótropo, las ecuaciones del modo TM son:
  
-  δ_t H_y=  1/Ϗ  [ δ_x E_z+ δ_z (-E_x )- M_y ],
-   δ_t (-E_x )=  1/ε [δ_z H_y- σ ̂(-E_x )],	
-   δ_t E_z=  1/ε ̂(δ_x H_y- σ ̂E_z ).
+   δ_t H_y=  1/Ϗ  ( δ_x E_z + δ_z (-E_x ) - M_y ),
+    δ_t (-E_x ) =  1/ε ( δ_z H_y - σ ̂(-E_x )),	
+    δ_t E_z =  1/ε ̂(δ_x H_y - σ ̂E_z ).
 
 
 
