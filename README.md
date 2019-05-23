@@ -59,7 +59,7 @@ Una vez seleccionado el ejemplo se abren las dos subrutinas que utiliza el progr
 Ambos casos se basan en datos geofísicos reales mencionados en la tesis "Alvarado, 2019". 
 
 # Ejemplo caso electromagnético
-Como ejemplo se explica la estructura del caso electromagnético, el cual se basa en datos reales de una adquisicón GPR (Georadar de Penetración Terrestre) utilizando el modo biestático con polarización H o modo TM. El código simula una adquisición similar al arreglo "common shot gathered" con un sólo dipolo transmisor y varios dipolos receptores.
+Como ejemplo se explica la estructura del caso electromagnético, el cual se basa en datos reales de una adquisicón GPR (Georadar de Penetración Terrestre) utilizando el modo biestático con polarización H o modo TM. El código simula una adquisición similar al arreglo "common shot gathered" con un sólo dipolo transmisor (fuente) y varios dipolos receptores.
  
  * Parámetros de la malla y del tendido
  
