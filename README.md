@@ -31,7 +31,7 @@ Este programa utiliza una malla escalonada y métodos numéricos para resolver l
  Con la correspondencia
   
     v_y  ↔  H_y
-    σ_yz ↔  (-E_x )
+    σ_yz ↔  (-E_x)
     σ_xy ↔  E_z
     η    ↔  1/α
     μ    ↔  1/ε
