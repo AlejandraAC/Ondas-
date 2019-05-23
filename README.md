@@ -67,7 +67,7 @@ Para simular la adquisición se decide la cantidad de dipolos receptores a lo la
 
     LM = (LT + 2 * nab),
     
-donde "LM" es la longitud de la malla, "LT" es la longitud del tendido y "nab" es el tamaño de las fronteras absorbentes, que en este caso fue de 50 nodos.
+donde "LM" es la longitud de la malla, "LT" es la longitud del tendido y "nab" es el tamaño de las fronteras absorbentes.
  
  * Parámetros de la fuente
  
