@@ -8,9 +8,9 @@ Este programa utiliza una malla escalonada y métodos numéricos para resolver l
  
  Para un medio viscoelástico e isótropo, las ecuaciones de onda SH con la formulación esfuerzo-velocidad son:
  
-    δ_t v_y=  1/ρ  (δ_x σ_xy+ δ_z σ_yz+ f_y) 
-      δ_t σ_yz= μ (δ_z v_y-  1/η σ_yz) 
-     δ_t σ_xy= μ (δ_x v_y-  1/η σ_xy) 
+    δ_{t} v_y =  1/ρ  (δ_x σ_xy + δ_z σ_yz + f_y) 
+      δ_t σ_yz = μ (δ_z v_y  - 1/η σ_yz) 
+     δ_t σ_xy = μ (δ_x v_y  - 1/η σ_xy) 
 
 
 
