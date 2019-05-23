@@ -1,5 +1,5 @@
-# Ondas Acústicas-Electromagnéticas
-Este código 2D simula la propagación de ondas viscoelásticas SH y de ondas electromagnéticas del modo TM. 
+# Analogía de Ondas Acústicas-Electromagnéticas
+Este código 2D simula la propagación de ondas viscoelásticas SH y de ondas electromagnéticas del modo TM a partir de la correspondencia entre sus valores de campo y propiedades del medio. 
 
 El programa fue basado y modificado del código realizado por J. Carcione (2015,p.548) en Fortran 77.
 
