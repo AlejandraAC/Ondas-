@@ -157,10 +157,11 @@ Por ejemplo, para obtener los resultados del campo magnético se seleccionan las
            caxis([-5e-12 5e-12]) %campo magnético v2 <-> H2
            ... 
          %Titulos 
-         % title(['Campo Magnético H_2 en t=' num2str(a) '[ns]'],'Fontsize',19,'FontName','Arial', 'FontWeight',     'bold','FontAngle','italic','HorizontalAlignment','center')
+         % title(['Campo Magnético H_2 en t=' num2str(a) '[ns]'],'Fontsize',19,'FontName','Arial', 'FontWeight',
            ...
 
  * Ejecución del programa 
+ 
 Una vez ingresados los datos deseados, para ejecutar el programa se presiona "Run" desde el main en "Matlab" y se arrojarán los snapshots y gráficas resultantes para observar el comportamiento de onda.
 
 Se imprimen las gráficas del modelo geológico simulado junto con la línea del contacto entre capas, las fronteras absorbentes y la línea receptora. De este modo se visualiza la propagación de la onda y los valores resultantes de campo debido a la fuente en una escala de colores.
