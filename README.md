@@ -64,7 +64,7 @@ Como ejemplo se explica la estructura del caso electromagnético, el cual se bas
  
  * Parámetros de la malla y del tendido
  
-Para simular la adquisición se decide la cantidad de dipolos receptores a lo largo del tendido que cubra el espaciamiento entre ellos. Después se decide el ancho de las fronteras absorbentes y se calcula la dimensión total de la malla numérica "nx(filas)", "nz(columnas)"
+Para simular la adquisición se decide la cantidad de dipolos receptores a lo largo del tendido que cubra el espaciamiento entre ellos. Después se decide el ancho de las fronteras absorbentes y se calcula la dimensión total de la malla rectangular numérica "nx(filas)", "nz(columnas)"
 
     LM = (LT + 2 * nab),
     
