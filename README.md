@@ -96,7 +96,9 @@ El código maneja fronteras absorbentes para evitar reflexiones de onda, para cr
     for i=1:nab
         ab(i)=r^i;
     end
-  
+
+donde "r" es el factor de atenuación inicial y "ab" el vector de atenuación.
+
  * Creación de los snapshots 
  
 Se genera un ciclo con 250 muestras. En cada iteración se crean las fronteras absorbentes (2 horizontales y 2 verticales)
