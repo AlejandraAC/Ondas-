@@ -101,7 +101,8 @@ donde "r" es el factor de atenuación inicial y "ab" el vector de atenuación.
 
  * Creación de los snapshots 
  
-Se genera un ciclo con 250 muestras. En cada iteración se crean las fronteras absorbentes (2 horizontales y 2 verticales)
+Se genera un ciclo con 250 muestras. En cada iteración se crean las fronteras absorbentes (2 horizontales y 2 verticales).
+
 Así mismo se resuelve el método de Runge Kutta de cuarto orden para la discretización en el tiempo con la siguiente formulación:
 
     V^(n+1)=V^n + dt/6 (Δ_1 + 2Δ_2 + 2Δ_3 + Δ_4),
@@ -111,12 +112,17 @@ Así mismo se resuelve el método de Runge Kutta de cuarto orden para la discret
     Δ_3 = H (V^n + dt/2 Δ_2) + f^(n+1/2),
     Δ_4 = H (V^n + dt Δ_3) + f^(n+1) .
    
-donde "H" representa el sistema de ecuaciones TM, los Δ's son las funciones de recurrencia y la función "f" se implementa con la *subrutina wavelet* 
+donde Δ's son las funciones de recurrencia, "f" es la fuente implementada a través de la *subrutina wavelet*, cuya formulación es:
 
-Este método, a su vez, utiliza las ecuaciones TM discretizadas espacialmente con el método de diferencias finitas de cuarto orden programados en la *subrutina H*, donde sus operadores diferenciales son: 
-
-
-    
+    f(t)=exp⁡〖-(Δw^2 (t-t_0)^2))/4〗 cos⁡( ϖ(t-t_0) )
+    Donde
+    t_0 = 6/5 F_s  es el tiempo de retraso con F_s como frecuencia máxima.
+    n   = t_0/dt es el número de muestra del pulso,
+    ϖ   = 2πF_s  es la frecuencia angular central,
+    Δw  = 0.5ϖ es el ancho del pulso.
+ 
+y donde "H" representa el sistema de ecuaciones TM discretizadas espacialmente con el método de diferencias finitas de cuarto orden programados en la *subrutina H*.
+ 
 Con ello, se resuelven los valores de campo magnético H_2[A/m] y campo eléctrico E_3 y -E_1 [V/m] durante el tiempo de muestreo total, que en este caso es de 150 (ns). 
    
  # Resultados, Gráficas de Snapshots y Radargrama
