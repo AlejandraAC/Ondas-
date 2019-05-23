@@ -57,7 +57,7 @@ Una vez seleccionado el ejemplo se abren las dos subrutinas que utiliza el progr
   "wavelet.m" Subrutina para la ejecución de la Fuente impulso.
 
 Ambos casos se basan en datos geofísicos reales mencionados en la tesis "Alvarado, 2019". 
-Para ejecutar el main deseado únicamente se presiona "Run" en el programa "Matlab" y se arrojarán los snapshots y gráficas resultantes  para observar el comportamiento de onda.
+Para ejecutar el caso deseado únicamente se presiona "Run" desde el main en "Matlab" y se arrojarán los snapshots y gráficas resultantes  para observar el comportamiento de onda.
 
 # Ejemplo caso electromagnético
 Como ejemplo se explica la estructura del caso electromagnético, el cual se basa en datos reales de una adquisicón GPR (Georadar de Penetración Terrestre) utilizando el modo biestático con polarización H o modo TM. El código simula una adquisición similar al arreglo "common shot gathered" con un sólo dipolo transmisor y varios dipolos receptores.
