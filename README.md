@@ -166,7 +166,7 @@ Una vez ingresados los datos deseados, para ejecutar el programa se presiona "Ru
 
 Se imprimen las gráficas del modelo geológico simulado junto con la línea del contacto entre capas, las fronteras absorbentes y la línea receptora. De este modo se visualiza la propagación de la onda y los valores resultantes de campo debido a la fuente en una escala de colores.
  
-Por último, se genera un radargrama donde se observan los valores de campo en los dipolos receptores.
+Por último, se genera un radargrama donde se observan los valores de campo magnético en los dipolos receptores.
   
 # Referencias
   Alvarado, A. (2019). Analogía entre la propagación de ondas acústicas y electromagnéticas y su aplicación en un prototipo computacional 2D. Tesis de licenciatura, UNAM, Ciudad Universitaria, Cd. Mx.
