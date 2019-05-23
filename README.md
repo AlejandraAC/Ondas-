@@ -57,7 +57,6 @@ Una vez seleccionado el ejemplo se abren las dos subrutinas que utiliza el progr
   "wavelet.m" Subrutina para la ejecución de la Fuente impulso.
 
 Ambos casos se basan en datos geofísicos reales mencionados en la tesis "Alvarado, 2019". 
-Para ejecutar el caso deseado únicamente se presiona "Run" desde el main en "Matlab" y se arrojarán los snapshots y gráficas resultantes  para observar el comportamiento de onda.
 
 # Ejemplo caso electromagnético
 Como ejemplo se explica la estructura del caso electromagnético, el cual se basa en datos reales de una adquisicón GPR (Georadar de Penetración Terrestre) utilizando el modo biestático con polarización H o modo TM. El código simula una adquisición similar al arreglo "common shot gathered" con un sólo dipolo transmisor y varios dipolos receptores.
@@ -153,6 +152,8 @@ Por ejemplo para observar los resultados del campo magnético se seleccionan las
          %Titulos 
          % title(['Campo Magnético H_2 en t=' num2str(a) '[ns]'],'Fontsize',19,'FontName','Arial', 'FontWeight',     'bold','FontAngle','italic','HorizontalAlignment','center')
            
+Para ejecutar el caso deseado, ya habido seleccionado los valores deseados, se presiona "Run" desde el main en "Matlab" y se arrojarán los snapshots y gráficas resultantes  para observar el comportamiento de onda.
+
 Se imprimen las gráficas del modelo geológico simulado, junto con la línea del contacto entre capas, las fronteras absorbentes y la línea receptora. De este modo se visualiza la propagación de la onda y los valores resultantes de campo debido a la fuente en una escala de colores.
  
 Por último, se genera un radargrama donde se observan los valores de campo en los dipolos receptores.
