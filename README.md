@@ -74,7 +74,7 @@ Se decide la frecuencia que se utilizará para simular la fuente impulso y la di
  
 El código funciona para un modelo geológico de una capa y un semi-espacio. Se decide cuál es el tipo de roca de cada capa y se ingresa el valor de las propiedades de permeabilidad magnética[H/m], permitividad dieléctrica [F/m] y un valor de Factor de Calidad obtenido con la siguiente fórmula:
   
-    Q = 2π f[Hz] ε[H/m] / α[S/m].
+    Q = 2π f[Hz] ε[F/m] / α[S/m].
     
 A partir de estos parámetros, también se calcula intervalo de nodos de la malla "Δx = Δz" de la siguiente manera:
     
