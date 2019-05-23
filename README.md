@@ -30,13 +30,13 @@ Este programa utiliza una malla escalonada y métodos numéricos para resolver l
  
  Con la correspondencia
   
-    v_y   ↔  H_y
-    σ_yz  ↔ (-E_x )
-    σ_xy  ↔ E_z
-    η ↔  1/α ̂ 
-    μ ↔  1/ε ̂  ̂ 
-    ρ ↔ Ϗ
-    f_y  ↔ - M_y
+    v_y  ↔  H_y
+    σ_yz ↔  (-E_x )
+    σ_xy ↔  E_z
+    η    ↔  1/α
+    μ    ↔  1/ε
+    ρ    ↔  Ϗ
+    f_y  ↔  -M_y
 
 Para discretizar espacialmente las ecuaciones se utiliza el método de diferencias finitas y para la discretización en tiempo se programa el método de Runge Kutta, ambos de cuarto orden. 
  
