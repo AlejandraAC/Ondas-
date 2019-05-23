@@ -13,9 +13,9 @@ Este programa utiliza una malla escalonada y métodos numéricos para resolver l
  
  Para un medio viscoelástico e isótropo, las ecuaciones de onda SH con la formulación esfuerzo-velocidad son:
  
-    δ_t v_y =  1/ρ  (δ_x σ_xy + δ_z σ_yz + f_y), 
-      δ_t σ_yz = μ (δ_z v_y  - 1/η σ_yz), 
-     δ_t σ_xy = μ (δ_x v_y  - 1/η σ_xy). 
+    δ_t v_y  =  1/ρ  (δ_x σ_xy + δ_z σ_yz + f_y), 
+    δ_t σ_yz =  μ (δ_z v_y  - 1/η σ_yz), 
+    δ_t σ_xy =  μ (δ_x v_y  - 1/η σ_xy). 
      
  donde "v_y" es la velocidad en la dirección de "y", "ρ" es la densidad, "σ_xy" y "σ_yz" son los esfuerzos en las direcciones correspondientes, "f_y" es la fuerza volumétrica en la dirección de "y", "μ" es la constante de rigidez y "η" es la viscosidad.
      
@@ -23,9 +23,9 @@ Este programa utiliza una malla escalonada y métodos numéricos para resolver l
  
  Para un medio con pérdidas de energía e isótropo, las ecuaciones del modo TM son:
      
-     δ_t H_y=  1/Ϗ  ( δ_x E_z + δ_z (-E_x ) - M_y ),
-    δ_t (-E_x ) =  1/ε ( δ_z H_y - α ̂ ̂(-E_x )),	
-    δ_t E_z =  1/ε ̂(δ_x H_y - α ̂ ̂E_z ).
+    δ_t H_y    =  1/Ϗ  ( δ_x E_z + δ_z (-E_x) - M_y ),
+    δ_t (-E_x) =  1/ε ( δ_z H_y - α ̂(-E_x) ),	
+    δ_t E_z    =  1/ε ̂(δ_x H_y - α ̂E_z ).
     
  donde "H_y" es el campo magnético en la dirección de "y", "Ϗ" es la permeabilidad magnética,  "E_z" y "E_x" es el campo eléctrico en la dirección corrrespondiente, "M_y" es la fuente magnética en la dirección de "y", "ε" es la permitividad relativa y "α" es la conductividad.
  
