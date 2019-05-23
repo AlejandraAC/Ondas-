@@ -71,7 +71,7 @@ donde "LM" es la longitud de la malla, "LT" es la longitud del tendido y "nab" e
  
  * Parámetros de la fuente
  
-Se decide la frecuencia que se utilizará para simular la fuente impulso y la discretización en tiempo "dt". En este ejemplo la frecuencia fue de 100 (MHz) y el "dt" de 6 (ns).
+Se decide la frecuencia que se utilizará para simular la fuente impulso, la discretización en tiempo "dt" y las muestras en el tiempo. En este ejemplo la frecuencia fue de 100 (MHz), el "dt" de 6 (ns) y se realizan 250 muestras. 
   
  * Parámetros del modelo geológico
  
