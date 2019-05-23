@@ -65,6 +65,10 @@ Como ejemplo se explica la estructura del caso electromagnético, el cual se bas
  * Parámetros de la malla y del tendido
  
 Para simular la adquisición se decide la cantidad de dipolos receptores a lo largo del tendido que cubra el espaciamiento entre ellos. Después se decide el ancho de las fronteras absorbentes y se calcula la dimensión total de la malla numérica "nx(filas)", "nz(columnas)"
+
+    LM = (LT + 2 * nab)
+
+donde "LM" es la longitud de la malla, "LT" es la longitud del tendido y "nab" es el tamaño del vector absorbente, que en este caso fue de 50 nodos.
  
  * Parámetros de la fuente
  
@@ -86,11 +90,30 @@ donde "v_min" es la velocidad mínima de las dos capas, la "f_max" son 100 MHz y
  
  * Parámetros absorbentes
  
-El código maneja fronteras absorbentes para evitar reflexiones de onda, para crearlas se utiliza un vector con factores de atenuación que disminuyen la amplitud de la onda conforme ésta hace contacto con los cuatro bordes de la malla.
+El código maneja fronteras absorbentes para evitar reflexiones de onda, para crearlas se utiliza un vector con factores de atenuación que disminuye la amplitud de la onda conforme ésta hace contacto con los cuatro bordes de la malla.
+  
+    r=0.99;
+    for i=1:nab
+        ab(i)=r^i;
+    end
   
  * Creación de los snapshots 
  
-Se genera un ciclo con 250 muestras. En cada iteración se crean las fronteras absorbentes y se resuelve el método de Runge Kutta, el cual utiliza dentro de sus funciones de recurrencia, los operadores diferenciales del método de diferencias finitas programados en la *subrutina H* y la implementación de la fuente en la velocidad utilizando la *subrutina wavelet* 
+Se genera un ciclo con 250 muestras. En cada iteración se crean las fronteras absorbentes (2 horizontales y 2 verticales)
+Así mismo se resuelve el método de Runge Kutta de cuarto orden para la discretización en el tiempo con la siguiente formulación:
+
+   V^(n+1)=V^n + dt/6 (Δ_1 + 2Δ_2 + 2Δ_3 + Δ_4),
+   Donde
+   Δ_1 = H V^n + f^n,
+   Δ_2 = H (V^n + dt/2 Δ_1) + f^(n+1/2),
+   Δ_3 = H (V^n + dt/2 Δ_2) + f^(n+1/2),
+   Δ_4 = H (V^n + dt Δ_3) + f^(n+1) .
+   
+donde "H" representa el sistema de ecuaciones TM, los Δ's son las funciones de recurrencia y la función "f" se implementa con la *subrutina wavelet* 
+
+Este método, a su vez, utiliza las ecuaciones TM discretizadas espacialmente con el método de diferencias finitas de cuarto orden programados en la *subrutina H*, donde sus operadores diferenciales son: 
+
+
     
 Con ello, se resuelven los valores de campo magnético H_2[A/m] y campo eléctrico E_3 y -E_1 [V/m] durante el tiempo de muestreo total, que en este caso es de 150 (ns). 
    
