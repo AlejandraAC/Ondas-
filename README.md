@@ -102,12 +102,12 @@ El código maneja fronteras absorbentes para evitar reflexiones de onda, para cr
 Se genera un ciclo con 250 muestras. En cada iteración se crean las fronteras absorbentes (2 horizontales y 2 verticales)
 Así mismo se resuelve el método de Runge Kutta de cuarto orden para la discretización en el tiempo con la siguiente formulación:
 
-   V^(n+1)=V^n + dt/6 (Δ_1 + 2Δ_2 + 2Δ_3 + Δ_4),
-   Donde
-   Δ_1 = H V^n + f^n,
-   Δ_2 = H (V^n + dt/2 Δ_1) + f^(n+1/2),
-   Δ_3 = H (V^n + dt/2 Δ_2) + f^(n+1/2),
-   Δ_4 = H (V^n + dt Δ_3) + f^(n+1) .
+    V^(n+1)=V^n + dt/6 (Δ_1 + 2Δ_2 + 2Δ_3 + Δ_4),
+    Donde
+    Δ_1 = H V^n + f^n,
+    Δ_2 = H (V^n + dt/2 Δ_1) + f^(n+1/2),
+    Δ_3 = H (V^n + dt/2 Δ_2) + f^(n+1/2),
+    Δ_4 = H (V^n + dt Δ_3) + f^(n+1) .
    
 donde "H" representa el sistema de ecuaciones TM, los Δ's son las funciones de recurrencia y la función "f" se implementa con la *subrutina wavelet* 
 
