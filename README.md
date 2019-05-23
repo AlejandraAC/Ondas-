@@ -16,7 +16,7 @@ Una vez instalado Matlab, en la carpeta Ondas Acústicas/Electromagnéticas vien
 
 "H.m" Subrutina para la ejecución del método de diferencias finitas
 
-"Wavelet.m" Subrutina para la ejecución del impulso de onda
+"wavelet.m" Subrutina para la ejecución del impulso de onda
 
 Como ejemplo, se explica la estructura del ejemplo electromagnético "TM.m":
 
@@ -32,7 +32,7 @@ Como ejemplo, se explica la estructura del ejemplo electromagnético "TM.m":
   * 3. Modelo Heterogéneo
   
   El código funciona para un modelo geológico de una capa y un semi-espacio.
-  Se decide cuál es el tipo de roca de cada capa y se ingresa el valor de las propiedades de conductividad[s/m], permeabilidad magnética[H/m], permitividad dieléctrica [F/m] y el factor de calidad (Q). 
+  Se decide cuál es el tipo de roca de cada capa y se ingresa el valor de las propiedades de conductividad[s/m], permeabilidad magnética[H/m], permitividad dieléctrica [F/m] y se obtiene el factor de calidad (Q). 
   
   * 4. Parámetros absorbentes
   
@@ -51,7 +51,7 @@ Como ejemplo, se explica la estructura del ejemplo electromagnético "TM.m":
  
  * 8. Gráfica de Snapshots
  
- Se generan las gráficas del modelo geológico simulado, se dibuja la línea del contacto entre capas, las fronteras absorbentes, la línea receptora. De este modo se visualiza la propagación de la onda y los valores resultantes en una escala de colores.
+ Se generan las gráficas del modelo geológico simulado, se dibuja la línea del contacto entre capas, las fronteras absorbentes y la línea receptora. De este modo se visualiza la propagación de la onda y los valores resultantes en una escala de colores.
  
  * 9. Gráfica del radiorgrama
  
