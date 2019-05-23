@@ -151,10 +151,8 @@ Por ejemplo, para obtener los resultados del campo magnético se seleccionan las
             %  [A,B]=size(transpose(s12));  %s12 <-> E3
             %   [A,B]=size(transpose(s32));   %s32 <-> (-E2)
          %Se grafican los valores de la matriz 
-           %Se grafican los valores de la matriz 
            imagesc(x,y,transpose(v2)) %campo magnético v2 <-> H2
            ...
-         %Escalas 
           %Escalas 
            caxis([-5e-12 5e-12]) %campo magnético v2 <-> H2
            ... 
