@@ -95,7 +95,7 @@ El código maneja fronteras absorbentes para evitar reflexiones de onda, para cr
     for i=1:nab
         ab(i)=r^i;
     end
-Donde "r" es el factor de atenuación inicial y "ab" el vector de atenuación.
+Donde "r" es el factor de atenuación inicial y "ab" es el vector de atenuación.
 
  * Creación de los snapshots 
  
