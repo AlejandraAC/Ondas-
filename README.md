@@ -18,8 +18,8 @@ Este programa utiliza una malla escalonada y métodos numéricos para resolver l
  * Ecuaciones TM:
  
  Para un medio con pérdidas de energía e isótropo, las ecuaciones del modo TM son:
- 
-   δ_t H_y=  1/Ϗ  ( δ_x E_z + δ_z (-E_x ) - M_y ),
+     
+     δ_t H_y=  1/Ϗ  ( δ_x E_z + δ_z (-E_x ) - M_y ),
     δ_t (-E_x ) =  1/ε ( δ_z H_y - σ ̂(-E_x )),	
     δ_t E_z =  1/ε ̂(δ_x H_y - σ ̂E_z ).
 
