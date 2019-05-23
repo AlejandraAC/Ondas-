@@ -15,8 +15,8 @@ El prototipo computacional utiliza una malla escalonada y métodos numéricos pa
     δ_t v_y  =  1/ρ  (δ_x σ_xy + δ_z σ_yz + f_y), 
     δ_t σ_yz =  μ (δ_z v_y  - 1/η σ_yz), 
     δ_t σ_xy =  μ (δ_x v_y  - 1/η σ_xy). 
-     
- donde "v_y" es la velocidad en la dirección de "y", "ρ" es la densidad, "σ_xy" y "σ_yz" son los esfuerzos en las direcciones correspondientes, "f_y" es la fuerza volumétrica en la dirección de "y", "μ" es la constante de rigidez y "η" es la viscosidad.
+    
+    donde "v_y" es la velocidad en la dirección de "y", "ρ" es la densidad, "σ_xy" y "σ_yz" son los esfuerzos en las direcciones correspondientes, "f_y" es la fuerza volumétrica en la dirección de "y", "μ" es la constante de rigidez y "η" es la viscosidad. 
      
  * Ecuaciones TM
  
@@ -24,10 +24,10 @@ El prototipo computacional utiliza una malla escalonada y métodos numéricos pa
      
     δ_t H_y    =  1/Ϗ  ( δ_x E_z + δ_z (-E_x) - M_y ),
     δ_t (-E_x) =  1/ε ( δ_z H_y - α ̂(-E_x) ),	
-    δ_t E_z    =  1/ε ̂(δ_x H_y - α ̂E_z ).
+    δ_t E_z    =  1/ε ̂(δ_x H_y - α ̂E_z ),
     
- donde "H_y" es el campo magnético en la dirección de "y", "Ϗ" es la permeabilidad magnética,  "E_z" y "E_x" es el campo eléctrico en la dirección corrrespondiente, "M_y" es la fuente magnética en la dirección de "y", "ε" es la permitividad relativa y "α" es la conductividad.
- 
+    donde "H_y" es el campo magnético en la dirección de "y", "Ϗ" es la permeabilidad magnética,  "E_z" y "E_x" es el campo eléctrico en la dirección corrrespondiente, "M_y" es la fuente magnética en la dirección de "y", "ε" es la permitividad relativa y "α" es la conductividad.
+    
  Con la correspondencia
   
     v_y  ↔  H_y
@@ -66,9 +66,9 @@ Como ejemplo se explica la estructura del caso electromagnético, el cual se bas
  
 Para simular la adquisición se decide la cantidad de dipolos receptores a lo largo del tendido que cubra el espaciamiento entre ellos. Después se decide el ancho de las fronteras absorbentes y se calcula la dimensión total de la malla numérica "nx(filas)", "nz(columnas)"
 
-    LM = (LT + 2 * nab)
-
-donde "LM" es la longitud de la malla, "LT" es la longitud del tendido y "nab" es el tamaño del vector absorbente, que en este caso fue de 50 nodos.
+    LM = (LT + 2 * nab),
+    
+    donde "LM" es la longitud de la malla, "LT" es la longitud del tendido y "nab" es el tamaño del vector absorbente, que en este caso fue de 50 nodos.
  
  * Parámetros de la fuente
  
@@ -84,9 +84,9 @@ A partir de estos parámetros, también se calcula el intervalo de nodos de la m
     
     v_min = √(1/(Ϗε)),
     λ_min = v_min/f_max,
-    Δx = Δz = λ_min/n
- 
-donde "v_min" es la velocidad mínima de las dos capas, la "f_max" son 100 MHz y "n" es el número de nodos necesarios para discretizar la longitud de onda mínima, que por similitud al ejemplo de J. Carcione (2015) se toman 9 nodos. 
+    Δx = Δz = λ_min/n,
+    
+    donde "v_min" es la velocidad mínima de las dos capas, la "f_max" son 100 MHz y "n" es el número de nodos necesarios para discretizar la longitud de onda mínima, que por similitud al ejemplo de J. Carcione (2015) se toman 9 nodos. 
  
  * Parámetros absorbentes
  
@@ -96,8 +96,8 @@ El código maneja fronteras absorbentes para evitar reflexiones de onda, para cr
     for i=1:nab
         ab(i)=r^i;
     end
-
-donde "r" es el factor de atenuación inicial y "ab" el vector de atenuación.
+    
+    Donde "r" es el factor de atenuación inicial y "ab" el vector de atenuación.
 
  * Creación de los snapshots 
  
@@ -106,25 +106,39 @@ Se genera un ciclo con 250 muestras. En cada iteración se crean las fronteras a
 Así mismo se resuelve el método de Runge Kutta de cuarto orden para la discretización en el tiempo con la siguiente formulación:
 
     V^(n+1)=V^n + dt/6 (Δ_1 + 2Δ_2 + 2Δ_3 + Δ_4),
-    Donde
+    donde
     Δ_1 = H V^n + f^n,
     Δ_2 = H (V^n + dt/2 Δ_1) + f^(n+1/2),
     Δ_3 = H (V^n + dt/2 Δ_2) + f^(n+1/2),
     Δ_4 = H (V^n + dt Δ_3) + f^(n+1) .
+    
+    donde "Δ's" son las funciones de recurrencia, "H" representa el sistema de ecuaciones TM discretizadas espacialmente con el método de diferencias finitas programados en la *subrutina H* y "f" es la fuente implementada a través de la *subrutina wavelet*.
    
-donde Δ's son las funciones de recurrencia, "f" es la fuente implementada a través de la *subrutina wavelet*, cuya formulación es:
+Con ello, se resuelven los valores de campo magnético H_2[A/m] y campo eléctrico E_3 y -E_1 [V/m] durante el tiempo de muestreo total, que en este caso es de 150 (ns).
 
-    f(t)=exp⁡〖-(Δw^2 (t-t_0)^2))/4〗 cos⁡( ϖ(t-t_0) )
-    Donde
+# Subrutina Wavelet 
+
+Esta función crea una fuente impulso que genera una ondícula gaussiana (J. Carcione ,2006):
+
+    f(t)=exp⁡〖-(Δw^2 (t-t_0)^2))/4〗 cos⁡( ϖ(t-t_0) ),
+    donde
     t_0 = 6/5 F_s  es el tiempo de retraso con F_s como frecuencia máxima.
     n   = t_0/dt es el número de muestra del pulso,
     ϖ   = 2πF_s  es la frecuencia angular central,
     Δw  = 0.5ϖ es el ancho del pulso.
- 
-y donde "H" representa el sistema de ecuaciones TM discretizadas espacialmente con el método de diferencias finitas de cuarto orden programados en la *subrutina H*.
- 
-Con ello, se resuelven los valores de campo magnético H_2[A/m] y campo eléctrico E_3 y -E_1 [V/m] durante el tiempo de muestreo total, que en este caso es de 150 (ns). 
-   
+
+Para graficar la ondícula se debe seleccionar el caso en cuestión, en este ejemplo se activa el caso electromagnético y se deja comentado el caso viscoelástico.
+
+# Subrutina H
+
+Esta función resuelve las derivadas espaciales del sistema de ecuaciones TM a través del método de diferencias finitas de cuarto orden con la siguiente formulación:
+
+    f^'(x_i)=  〖 1/24 f(x_(i-3/2)) - 9/8 f(x_(i-1/2)) + 9/8 f(x_(i+1/2)) - 1/24 f(x_(i+3/2)) 〗/ h
+    donde 
+    
+    "f^'(x_i)" es la derivada espacial ya sea del campo magnético o eléctrico, y las constantes "∓1/24" y "∓9/8" representan los    coeficientes de cuarto orden del método.
+
+
  # Resultados, Gráficas de Snapshots y Radargrama
  
 El código realiza 250 snapshots pero sólo desplega 25 de ellos para observar el comportamiento de la onda. 
