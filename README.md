@@ -94,7 +94,7 @@ Se genera un ciclo con 250 muestras. En cada iteración se crean las fronteras a
     
 Con ello, se resuelven los valores de campo magnético H_2[A/m] y campo eléctrico E_3 y -E_1 [V/m] durante el tiempo de muestreo total, que en este caso es de 150 (ns). 
    
- # Resultados, Gráficas de Snapshots 
+ # Resultados, Gráficas de Snapshots y Radargrama
  
 El código realiza 250 snapshots pero sólo desplega 25 de ellos para observar el comportamiento de la onda. 
 Para obsverar las gráficas correspondientes a cada componentes de campo, se deben selecciónar las opciones correspondiente.
