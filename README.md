@@ -145,21 +145,17 @@ Por ejemplo para observar los resultados del campo magnético se seleccionan las
            [A,B]=size(transpose(v2));  %campo magnético v2 <-> H2
             %  [A,B]=size(transpose(s12));  %s12 <-> E3
             %   [A,B]=size(transpose(s32));   %s32 <-> (-E2)
-            
          %Se grafican los valores de la matriz 
            %Se grafican los valores de la matriz 
            imagesc(x,y,transpose(v2)) %campo magnético v2 <-> H2
-             %  imagesc(x,y,transpose(s12)) %s12 <-> E3
-             %  imagesc(x,y,transpose(s32))  %s32 <-> (-E2)
-             
+           ...
          %Escalas 
           %Escalas 
            caxis([-5e-12 5e-12]) %campo magnético v2 <-> H2
-           ....
-             
+           ... 
          %Titulos 
          % title(['Campo Magnético H_2 en t=' num2str(a) '[ns]'],'Fontsize',19,'FontName','Arial', 'FontWeight',     'bold','FontAngle','italic','HorizontalAlignment','center')
-         .....
+           ...
            
 Una vez ingresados los datos deseados, para ejecutar programa se presiona "Run" desde el main en "Matlab" y se arrojarán los snapshots y gráficas resultantes para observar el comportamiento de onda.
 
