@@ -118,7 +118,7 @@ Con ello, se resuelven los valores de campo magnético H_2[A/m] y campo eléctri
 
 Esta función crea una fuente impulso que genera una ondícula gaussiana (J. Carcione ,2006):
 
-    f(t)=exp⁡〖-(Δw^2 (t-t_0)^2))/4〗 cos⁡( ϖ(t-t_0) ),
+    f(t) = exp⁡〖-(Δw^2 (t-t_0)^2))/4〗*cos⁡(ϖ(t-t_0)),
     donde
     t_0 = 6/5 F_s  es el tiempo de retraso con F_s como frecuencia máxima.
     n   = t_0/dt es el número de muestra del pulso,
@@ -131,28 +131,37 @@ Para graficar la ondícula se debe seleccionar el caso en cuestión, en este eje
 
 Esta función resuelve las derivadas espaciales del sistema de ecuaciones TM a través del método de diferencias finitas de cuarto orden con la siguiente formulación:
 
-    f^'(x_i)=  〖 1/24 f(x_(i-3/2)) - 9/8 f(x_(i-1/2)) + 9/8 f(x_(i+1/2)) - 1/24 f(x_(i+3/2)) 〗/ h
-donde "f^'(x_i)" es la derivada espacial ya sea del campo magnético o eléctrico, y las constantes "∓1/24" y "∓9/8" representan los    coeficientes de cuarto orden del método.
+    f^'(x_i) = 〖1/24 f(x_(i-3/2)) - 9/8 f(x_(i-1/2)) + 9/8 f(x_(i+1/2)) - 1/24 f(x_(i+3/2))〗/ h
+
+donde "h" representa el intervalo "Δx o  Δz", f^'(x_i)" es la derivada espacial del campo magnético o eléctrico, y las constantes "∓1/24" y "∓9/8" representan los coeficientes de cuarto orden del método.
 
  # Resultados, Gráficas de Snapshots y Radargrama
  
 El código realiza 250 snapshots pero sólo desplega 25 de ellos para observar el comportamiento de la onda. 
 Para obsverar las gráficas correspondientes a cada componentes de campo, se deben selecciónar las opciones correspondiente.
-Por ejemplo para observar los resultados del campo magnético se seleccionan las siguientes opciones y las del campo eléctrico se dejan comentadas:
+Por ejemplo para observar los resultados del campo magnético se seleccionan las siguientes opciones y las del campo eléctrico se dejan comentadas (%):
  
          %Se crea un vector con el tamaño de la matriz correspondiente
-           [A,B]=size(transpose(v2)); %campo magnético v2 <-> H2
-           ....
+           [A,B]=size(transpose(v2));  %campo magnético v2 <-> H2
+            %  [A,B]=size(transpose(s12));  %s12 <-> E3
+            %   [A,B]=size(transpose(s32));   %s32 <-> (-E2)
+            
          %Se grafican los valores de la matriz 
-           imagesc(x,y,transpose(v2)); %campo magnético v2 <-> H2
-         ...
+           %Se grafican los valores de la matriz 
+           imagesc(x,y,transpose(v2)) %campo magnético v2 <-> H2
+             %  imagesc(x,y,transpose(s12)) %s12 <-> E3
+             %  imagesc(x,y,transpose(s32))  %s32 <-> (-E2)
+             
          %Escalas 
-          caxis([-5e-12 5e-12]) %campo magnético
-          ...
+          %Escalas 
+           caxis([-5e-12 5e-12]) %campo magnético v2 <-> H2
+           ....
+             
          %Titulos 
          % title(['Campo Magnético H_2 en t=' num2str(a) '[ns]'],'Fontsize',19,'FontName','Arial', 'FontWeight',     'bold','FontAngle','italic','HorizontalAlignment','center')
+         .....
            
-Para ejecutar el caso deseado, ya habido seleccionado los valores deseados, se presiona "Run" desde el main en "Matlab" y se arrojarán los snapshots y gráficas resultantes  para observar el comportamiento de onda.
+Una vez ingresados los datos deseados, para ejecutar programa se presiona "Run" desde el main en "Matlab" y se arrojarán los snapshots y gráficas resultantes para observar el comportamiento de onda.
 
 Se imprimen las gráficas del modelo geológico simulado, junto con la línea del contacto entre capas, las fronteras absorbentes y la línea receptora. De este modo se visualiza la propagación de la onda y los valores resultantes de campo debido a la fuente en una escala de colores.
  
