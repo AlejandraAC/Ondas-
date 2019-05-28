@@ -454,8 +454,8 @@ end
 
 %REFERENCIAS
 
-%Alvarado, A. (2019). Analogía entre la propagación de ondas acústicas y electromagnéticas 
-%y su aplicación en un prototipo computacional 2D. Tesis de licenciatura, UNAM, Ciudad Universitaria, Cd. Mx.
+%Alvarado, A. (2019). Analogía entre la propagación de ondas viscoelásticas y electromagnéticas: 
+%Desarrollo de un prototipo computacional 2D. Tesis de licenciatura, UNAM, Ciudad Universitaria, Cd. Mx.
 
 %Carcione, J. (2015). Wave Fields in Real Media Wave Propagation in Anisotropic,
 %"Anelastic, Porous and Electromagnetic Media. Trieste, Italy: Elsevier.

@@ -456,8 +456,8 @@ end
 
 %REFERENCIAS:
 
-%Alvarado, A. (2019). Analogía entre la propagación de ondas acústicas y electromagnéticas 
-%y su aplicación en un prototipo computacional 2D. Tesis de licenciatura, UNAM, Ciudad Universitaria, Cd. Mx.
+%Alvarado, A. (2019). Analogía entre la propagación de ondas viscoelásticas y electromagnéticas: 
+%Desarrollo de un prototipo computacional 2D. Tesis de licenciatura, UNAM, Ciudad Universitaria, Cd. Mx.
 
 %Alvarado, A., Lopez Diego, H. C., Uriel Jamaica, M. N., Leonel Velazquez,
 %L. O., Jesus Pulido, M. R., Vilchis, D. y col. (2019). Reporte de los
