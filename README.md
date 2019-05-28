@@ -1,4 +1,4 @@
-# Analogía de Ondas Acústicas-Electromagnéticas
+# Analogía de Ondas Viscoelásticas-Electromagnéticas
 Este código 2D simula la propagación de ondas viscoelásticas SH y de ondas electromagnéticas del modo TM, a partir de la correspondencia entre sus valores de campo y propiedades del medio. 
 
 El programa fue elaborado en "Matlab R2018b" y fue basado y modificado del código realizado por J. Carcione (2015,p.548) en Fortran 77.
@@ -50,7 +50,7 @@ Una vez instalado Matlab, se abre el archivo del caso deseado:
 
   "TM.m" El main para el ejemplo electromagnético
 
-Una vez seleccionado el ejemplo se abren las dos subrutinas que utiliza el programa:
+Se debe tomar en cuenta que las siguientes subrutinas deben estar en la misma carpeta que el "main" para que se ejecute correctamente el programa:
 
   "H.m" Subrutina para la ejecución del Método de Diferencias Finitas de cuarto orden
 
@@ -162,14 +162,14 @@ Por ejemplo, para obtener los resultados del campo magnético se seleccionan las
 
  * Ejecución del programa 
  
-Una vez ingresados los datos deseados, para ejecutar el programa se presiona "Run" desde el main en "Matlab" y se arrojarán los snapshots y gráficas resultantes para observar el comportamiento de onda.
+Una vez ingresados los datos deseados, para ejecutar el programa se presiona "Run" desde el main en "Matlab" y se obtendrán los snapshots y gráficas resultantes para observar el comportamiento de onda.
 
 Se imprimen las gráficas del modelo geológico simulado junto con la línea del contacto entre capas, las fronteras absorbentes y la línea receptora. De este modo se visualiza la propagación de la onda y los valores resultantes de campo debido a la fuente en una escala de colores.
  
 Por último, se genera un radargrama donde se observan los valores de campo magnético en los dipolos receptores.
   
 # Referencias
-  Alvarado, A. (2019). Analogía entre la propagación de ondas acústicas y electromagnéticas y su aplicación en un prototipo computacional 2D. Tesis de licenciatura, UNAM, Ciudad Universitaria, Cd. Mx.
+  Alvarado, A. (2019). Analogía entre la propagación de ondas viscoelásticas y electromagnéticas: Desarrollo de un prototipo computacional 2D. Tesis de licenciatura, UNAM, Ciudad Universitaria, Cd. Mx.
   
   Carcione, J. (2015). Wave Fields in Real Media Wave Propagation in Anisotropic,
 Anelastic, Porous and Electromagnetic Media. Trieste, Italy: Elsevier.
