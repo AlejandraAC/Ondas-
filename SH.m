@@ -1,14 +1,14 @@
-             %UNIVERSIDAD NACIONAL AUT�NOMA DE M�XICO. FACULTAD DE INGENIER�A
-                    %C�DIGO BASADO Y MODIFICADO DE J.CARCIONE, 2015. 
-       %ELABORADO POR ALVARADO CONTRERAS AEJANDRA PARA OBTENER EL T�TULO DE
-                      %INGENIERA GEOF�SICA (Alvarado, 2019)
+             %UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO. FACULTAD DE INGENIERÍA
+                    %CÓDIGO BASADO Y MODIFICADO DE J.CARCIONE, 2015. 
+       %ELABORADO POR ALVARADO CONTRERAS AEJANDRA PARA OBTENER EL TÍTULO DE
+                      %INGENIERA GEOFÍSICA (Alvarado, 2019)
  
-%Este c�digo 2D simula la propagaci�n de ondas viscoel�sticas SH y de ondas electromagn�ticas del modo TM, 
+%Este código 2D simula la propagación de ondas viscoelásticas SH y de ondas electromagnéticas del modo TM, 
 %a partir de la correspondencia entre sus valores de campo y propiedades del medio.
 
 %----------------------------------------------------------------------------------------------------------------
-%CASO AC�STICO. MODELACI�N DE LA PROPAGACI�N DE ONDAS SH EN EL SUBSUELO DE LA AVENIDA
-%PROLONGACI�N DEL CANAL DE MIRAMONTES, TLALPAN, CIUDAD DE M�XICO (Alvarado y col, 2019)
+%CASO ACÚSTICO. MODELACIÓN DE LA PROPAGACIÓN DE ONDAS SH EN EL SUBSUELO DE LA AVENIDA
+%PROLONGACIÓN DEL CANAL DE MIRAMONTES, TLALPAN, CIUDAD DE MÉXICO (Alvarado y col, 2019)
 %----------------------------------------------------------------------------------------------------------------
 
 %-------------------------------------------------------------------------------------------------------
@@ -20,18 +20,18 @@ close all
 
 %PARAMETROS DE LA MALLA Y DEL TENDIDO
 
-rec=12; %numero de ge�fonos utilizados
+rec=12; %numero de geófonos utilizados
 tend = 91; %largo del tendido %LT (nodos)
-srec = tend/(rec+1); %espaciamiento entre ge�fonos (nodos)
-nab = 15; %tama�o del vector absorbente (nodos)
+srec = tend/(rec+1); %espaciamiento entre geófonos (nodos)
+nab = 15; %tamaño del vector absorbente (nodos)
 
 %Dimensiones de la malla rectangular
 nx = tend +(2*nab); %numero de nodos en x [m] (filas) %LM
 nz = tend +(2*nab); %numero de nodos en z [m] (columnas) %LM
 
-%Ubicaci�n de las lineas receptoras y del contacto en el modelo geol�gico
+%Ubicación de las lineas receptoras y del contacto en el modelo geológico
 cont=35; %contacto entre capas
-lr=25; % ubicaci�n de la linea de receptores en el mallado 
+lr=25; % ubicación de la linea de receptores en el mallado 
 
 %--------------------------------------------------------------------
 
@@ -47,7 +47,7 @@ nsp=nstep; % Cada nsp pasos se almacenara un snapshot
     
 %--------------------------------------------------------------------
 
-%PAR�METROS DEL MODELO GEOL�GICO
+%PARÁMETROS DEL MODELO GEOLÓGICO
 
 % InicializaciOn de las propiedades
 %PROPIEDADES ACUSTICAS y su correspondencia a PROPIEDADES ELECTROMAGNETICAS
@@ -78,8 +78,8 @@ for i=1:nx
 end
 
 %Intervalo entre nodos
-vmin = min(v1,v3); %Se selecciona la velocidad m�nima de las dos capas
-lambdamin = vmin/freq; %Se calcula la longitud de onda m�nima
+vmin = min(v1,v3); %Se selecciona la velocidad mínima de las dos capas
+lambdamin = vmin/freq; %Se calcula la longitud de onda mínima
 dx = lambdamin/9; %intervalo entre nodos en x, (m)
 dz = lambdamin/9; %intervalo entre nodos en z, (m)
 
@@ -104,7 +104,7 @@ nw=nw2/2; %se divide a la mitad nw para su posterior uso en el metodo de RG
 
 %-------------------------------------------------------------------------
 
-%PAR�METROS DE LOS M�TODO NUM�RICOS
+%PARÁMETROS DE LOS MÉTODO NUMÉRICOS
 
 %Pesos de cuarto orden referentes al metodo de diferencias finitas
 x1 = 9/(8*dx);
@@ -374,11 +374,11 @@ for n=1:nstep
     if (mod(n,10)==0)
         %valor de tiempo de muestreo
         a=dt*n;
-        %Escribir el n�mero de snapshot en curso
+        %Escribir el nï¿½mero de snapshot en curso
         disp('Snapshot'),n;
         %Se crea una ventana de figura
         n=figure; 
-        %Se crea un vector con el tama�o de la matriz correspondiente
+        %Se crea un vector con el tamaño de la matriz correspondiente
       %     [A,B]=size(transpose(v2)); 
            [A,B]=size(transpose(s12)); 
           % [A,B]=size(transpose(s32)); 
@@ -413,7 +413,7 @@ for n=1:nstep
          %Formato de imagen
             axis('ij')  %Direccionn inversa. El eje 'y' es vertical y los valores aumentan de arriba a abajo.  
             colorbar %mostrar barra de colores
-            xlabel('Distancia [m]','Fontsize',15,'FontWeight','bold' ) %nombre y tama�o de ejes
+            xlabel('Distancia [m]','Fontsize',15,'FontWeight','bold' ) %nombre y tamaño de ejes
             ylabel('Profundidad [m]','Fontsize',15,'FontWeight', 'bold')
            %colocar legendas en la grafica
             legend([p1 p2 p3],'Contacto entre capas a 48.3 [m]','Fronteras Absorbentes','Receptores a 34.5[m]','Location','southeast','fontsize',10)
@@ -449,14 +449,14 @@ for j=1:rec
     box off
     %Retomamos el tick y label de la primera figura
     set(h(1),'XTick',25:25:250)
-    xlabel(h(1),'Muestras','Fontsize',15,'FontName','Arial','FontWeight', 'bold')
+    xlabel(h(1),'Tiempo','Fontsize',15,'FontName','Arial','FontWeight', 'bold')
 end
 
 %-------------------------------------------------------------------
 
 %REFERENCIAS:
 
-%Alvarado, A. (2019). Analog�a entre la propagaci�n de ondas viscoel�sticas y electromagn�ticas: 
+%Alvarado, A. (2019). Analogía entre la propagación de ondas viscoelásticas y electromagnéticas: 
 %Desarrollo de un prototipo computacional 2D. Tesis de licenciatura, UNAM, Ciudad Universitaria, Cd. Mx.
 
 %Alvarado, A., Lopez Diego, H. C., Uriel Jamaica, M. N., Leonel Velazquez,
