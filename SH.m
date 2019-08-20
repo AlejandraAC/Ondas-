@@ -1,13 +1,13 @@
-             %UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO. FACULTAD DE INGENIERÍA
-                    %CÓDIGO BASADO Y MODIFICADO DE J.CARCIONE, 2015. 
-       %ELABORADO POR ALVARADO CONTRERAS AEJANDRA PARA OBTENER EL TÍTULO DE
-                      %INGENIERA GEOFÍSICA (Alvarado, 2019)
+                     %UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO. FACULTAD DE INGENIERÍA
+                            %CÓDIGO BASADO Y MODIFICADO DE J.CARCIONE, 2015. 
+                  %ELABORADO POR ALVARADO CONTRERAS AEJANDRA PARA OBTENER EL TÍTULO DE
+                                 %INGENIERA GEOFÍSICA (Alvarado, 2019)
  
 %Este código 2D simula la propagación de ondas viscoelásticas SH y de ondas electromagnéticas del modo TM, 
 %a partir de la correspondencia entre sus valores de campo y propiedades del medio.
 
 %----------------------------------------------------------------------------------------------------------------
-%CASO ACÚSTICO. MODELACIÓN DE LA PROPAGACIÓN DE ONDAS SH EN EL SUBSUELO DE LA AVENIDA
+%CASO VISCOELASTICO. MODELACIÓN DE LA PROPAGACIÓN DE ONDAS SH EN EL SUBSUELO DE LA AVENIDA
 %PROLONGACIÓN DEL CANAL DE MIRAMONTES, TLALPAN, CIUDAD DE MÉXICO (Alvarado y col, 2019)
 %----------------------------------------------------------------------------------------------------------------
 
@@ -20,7 +20,7 @@ close all
 
 %PARAMETROS DE LA MALLA Y DEL TENDIDO
 
-rec=12; %numero de geófonos utilizados
+rec = 12; %numero de geófonos utilizados
 tend = 91; %largo del tendido %LT (nodos)
 srec = tend/(rec+1); %espaciamiento entre geófonos (nodos)
 nab = 15; %tamaño del vector absorbente (nodos)
@@ -30,8 +30,9 @@ nx = tend +(2*nab); %numero de nodos en x [m] (filas) %LM
 nz = tend +(2*nab); %numero de nodos en z [m] (columnas) %LM
 
 %Ubicación de las lineas receptoras y del contacto en el modelo geológico
-cont=35; %contacto entre capas
-lr=25; % ubicación de la linea de receptores en el mallado 
+cont=35; %contacto entre capas (nodos)
+lr=25; % ubicación de la linea de receptores en el mallado (nodos)
+gr=23; %ubicación de las letras de geófonos (nodos)
 
 %--------------------------------------------------------------------
 
@@ -42,15 +43,17 @@ nstep=250; %numero de muestras de tiempo (ms)
 nsp=nstep; % Cada nsp pasos se almacenara un snapshot
 
     %ubicacion de la fuente
-    ix=61; %(nodos)
-    iz=30; %(nodos)profundidad de la fuente
+     ix = 61; %G6 y G7
+ %   ix=22;  %G1
+  %  ix=99; %G12 %(nodos)
+     iz=30; %(nodos)profundidad de la fuente
     
 %--------------------------------------------------------------------
 
 %PARÁMETROS DEL MODELO GEOLÓGICO
 
-% InicializaciOn de las propiedades
-%PROPIEDADES ACUSTICAS y su correspondencia a PROPIEDADES ELECTROMAGNETICAS
+% Inicialización de las propiedades
+%PROPIEDADES VISCOELASTICAS y su correspondencia a PROPIEDADES ELECTROMAGNETICAS
 mu = zeros(nx,nz); %mu(rigidez) <-------> 1/permitividad dielectrica 
 rho = zeros(nx,nz); %rho(densidad) <--------> permeabilidad magnetica
 eta = zeros(nx,nz); %eta(viscosidad) <---------> 1/conductividad
@@ -60,24 +63,24 @@ for i=1:nx
     for j=1:nz
 
         %PRIMERA CAPA:
-        mu(i,j)=273626056.8; %Pa
         rho(i,j)=2812; %kg/m3
+        mu(i,j)=273626056.8; %Pa
         Q=93.582; %factor de calidad de la frecuencia central (Qs = 0.3*v_s = 0.3*311.94 = 93.582)
-        eta(i,j)=Q*mu(i,j)/(2*pi*freq); 
-        v1=(mu(1,1)/rho(1,1))^(1/2);  
+        eta(i,j)=Q*mu(i,j)/(2*pi*freq); %w=2*pi*freq, frecuencia angular central
+        v1=(mu(1,1)/rho(1,1))^(1/2);  %velocidad s
         
         %SEGUNDA CAPA
-         if j>=cont
-           rho(i,j)=3017; %kg/m3
-           mu(i,j)=1929046100; %Pa
+        if j>=cont
+            rho(i,j)=3017; %kg/m3
+            mu(i,j)=1929046100; %Pa
             Q=159.924; % (Qs = 0.2*v_s = 0.2*799.62 = 159.924)
             eta(i,j)=Q*mu(i,j)/(2*pi*freq);
             v3=(mu(cont,cont)/rho(cont,cont))^(1/2);
-         end
+        end
     end
 end
 
-%Intervalo entre nodos
+%Intervalo entre nodos en metros
 vmin = min(v1,v3); %Se selecciona la velocidad mínima de las dos capas
 lambdamin = vmin/freq; %Se calcula la longitud de onda mínima
 dx = lambdamin/9; %intervalo entre nodos en x, (m)
@@ -97,7 +100,7 @@ end
 
 %FUENTE
 
-%Con la subrutina wavelet se crea la fuente de impulso
+%Con la subrutina wavelet se crea la fuente impulso
 dt2=dt/2; %Se ingresa la mitad de dt para su posterior uso en el metodo de RG
 [f,nw2]=wavelet(dt2,freq);
 nw=nw2/2; %se divide a la mitad nw para su posterior uso en el metodo de RG
@@ -113,11 +116,11 @@ z1 = 9/(8*dz);
 z2 = -1/(24*dz);
 
 % Se inicializan las variables de campo
-%COMPONENTES DE CAMPO ACUSTICO <-----------> CAMPO ELECTROMAGNETICO
+%COMPONENTES DE CAMPO VISCOELASTICO <-----------> CAMPO ELECTROMAGNETICO
 v2 = zeros(nx,nz); %velocidad <---------> Campo magnetico H2 
 s12 = zeros(nx,nz); %Esfuerzo s12 <-------> Campo electrico -E1
 s32 = zeros(nx,nz); %Esfuerzo s32 <------> Campo electrico E3
- s = zeros(nstep,rec); %Matriz de sismogramas 
+s = zeros(nstep,rec); %Matriz de sismogramas 
  
 %------------------------------------------------------------------------
 
@@ -133,7 +136,7 @@ for n=1:nstep
     
     %----------------------------------------------------------------------
     
-    %CONDICIONES DE VARIABLE ABSORBENTES
+    %CONDICIONES DE VARIABLES ABSORBENTES
     
     %Fronteras horizontales
     for j=1:nab
@@ -374,24 +377,27 @@ for n=1:nstep
     if (mod(n,10)==0)
         %valor de tiempo de muestreo
         a=dt*n;
-        %Escribir el nï¿½mero de snapshot en curso
+        %Escribir el número de snapshot en curso
         disp('Snapshot'),n;
+
         %Se crea una ventana de figura
         n=figure; 
         %Se crea un vector con el tamaño de la matriz correspondiente
-      %     [A,B]=size(transpose(v2)); 
-           [A,B]=size(transpose(s12)); 
-          % [A,B]=size(transpose(s32)); 
-         %Asignamos el rango de los ejes de la grafica en metros.
+           [A,B]=size(transpose(v2)); 
+       %   [A,B]=size(transpose(s12)); 
+        %  [A,B]=size(transpose(s32));  
+         %Se asigna el rango de los ejes de la grafica en metros.
          x=(1:1:A)*dx;
-         y=(1:1:B)*dx;
-         %Se crea una cuadricula 2D basada en 'x' y 'y' 
-         [X,Y]=meshgrid(x,y);
+         z=(1:1:B)*dz;
+         %Se crea una cuadricula 2D basada en 'x' y 'z' 
+         [X,Z]=meshgrid(x,z);
+         
          %Se grafican los valores de la matriz 
-       %     imagesc(x,y,transpose(v2))
-          imagesc(x,y,transpose(s12))
-        %   imagesc(x,y,transpose(s32))
+           imagesc(x,z,transpose(v2))
+       %   imagesc(x,z,transpose(s12))
+        %  imagesc(x,z,transpose(s32))
          hold on;
+         
          %Se grafica el contacto (linea horizontal)
          p1= plot([1 B*dx],[cont*dx cont*dx],'g','LineWidth',2);
          %Se dibujan las fronteras absorbentes
@@ -400,31 +406,40 @@ for n=1:nstep
              plot([1 B*dx], [(nx-nab)*dx (nx-nab)*dx], 'b','LineWidth',2);
             %lineas verticales
              plot([nab*dx nab*dx], [1 A*dx], 'b','LineWidth',2);
-             plot([(nx-nab)*dx (nx-nab)*dx], [1 A*dx], 'b','LineWidth',2);
+             plot([(nz-nab)*dx (nz-nab)*dx], [1 A*dx], 'b','LineWidth',2);
          %Se grafican y nombran los geofonos
          for i=1:rec
             p3= plot([((nab+srec)*dx) (nab+(i*srec))*dx],[lr*dx lr*dx],'r^','MarkerFaceColor','r','MarkerSize',8);
-            text((nab+(i*srec))*dx,31,['G' num2str(i)],'HorizontalAlignment','center', 'VerticalAlignment','bottom','fontsize',8,'FontWeight', 'bold')
+            text((nab+(i*srec))*dx,gr*dx,['G' num2str(i)],'HorizontalAlignment','center', 'VerticalAlignment','bottom','fontsize',8,'FontWeight', 'bold')
          end
          %graficas de las lineas receptoras
        % for i=1:rec
-         %  plot([((nab+(i*srec))*dx) ((nab+(i*srec)))*dx], [0 A*dx], 'r');
-         %end  
+        %   plot([((nab+(i*srec))*dx) ((nab+(i*srec)))*dx], [0 A*dx], 'r');
+       % end 
+       
          %Formato de imagen
-            axis('ij')  %Direccionn inversa. El eje 'y' es vertical y los valores aumentan de arriba a abajo.  
+            axis('ij')  %Direccionn inversa. El eje 'z' es vertical y los valores aumentan de arriba a abajo. 
+            %Barra de colores
             colorbar %mostrar barra de colores
-            xlabel('Distancia [m]','Fontsize',15,'FontWeight','bold' ) %nombre y tamaño de ejes
+            %Poner título a la barra de colores
+            hcb=colorbar;
+            title(hcb,'m / s','Fontsize',17,'FontName','Arial', 'FontWeight', 'bold'); %velocidad
+          % title(hcb,'Pa','Fontsize',17,'FontName','Arial', 'FontWeight', 'bold'); % esfuerzos
+            
+            %nombres y tamaños de los ejes
+            xlabel('Distancia [m]','Fontsize',15,'FontWeight','bold' ) 
             ylabel('Profundidad [m]','Fontsize',15,'FontWeight', 'bold')
            %colocar legendas en la grafica
-            legend([p1 p2 p3],'Contacto entre capas a 48.3 [m]','Fronteras Absorbentes','Receptores a 34.5[m]','Location','southeast','fontsize',10)
-           %Escalas 
-          %  caxis([-20e-5 9e-5]) %velocidad
-           caxis([-100 100]) %s12??
+            legend([p1 p2 p3],'Contacto entre capas a 48.5 m','Fronteras Absorbentes','Receptores a 34.7 m','Location','southeast','fontsize',10)
+          
+            %Escalas 
+            caxis([-20e-5 9e-5]) %velocidad
+         %  caxis([-50 50]) %s12
          %  caxis([-100 100]) %s32
           %Titulos 
-         %   title(['Snapshot de Velocidad v_2 en t=' num2str(a) '[s]'],'Fontsize',19,'FontName','Arial', 'FontWeight', 'bold','FontAngle','italic','HorizontalAlignment','center')
-           title(['Snapshot de Esfuerzos \sigma_{12} en t=' num2str(a) 's'],'Fontsize',19,'FontName','Arial', 'FontWeight', 'bold','FontAngle','italic','HorizontalAlignment','center')
-         %  title(['Snapshot de Esfuerzos \sigma_{yz} en t=' num2str(a) 's'],'Fontsize',19,'FontName','Arial', 'FontWeight', 'bold','FontAngle','italic','HorizontalAlignment','center')
+           title(['Velocidad v_2 en t = ' num2str(a) ' [s] '],'Fontsize',19,'FontName','Arial', 'FontWeight', 'bold','HorizontalAlignment','center')
+         % title(['Esfuerzos \sigma_{12} en t = ' num2str(a) ' [s] '],'Fontsize',19,'FontName','Arial', 'FontWeight', 'bold','HorizontalAlignment','center')
+         %  title(['Esfuerzos \sigma_{32} en t = ' num2str(a) ' [s] '],'Fontsize',19,'FontName','Arial', 'FontWeight', 'bold','HorizontalAlignment','center')
              
          %Imprimir y guardar imagenes
          print(n,'-dpng');
@@ -443,17 +458,40 @@ for j=1:rec
     %Nombramos a los ejes 'y' de cada figura
     ylabel(['G' num2str(j)],'Fontsize',20,'FontName','Arial','FontWeight', 'bold')
     %Escalar el eje y
-    set(h(j),'YTick',-2e-4:1e-4:1e-4)
+    set(h(j),'YTick',-2e-2:1e-2:1e-2)
     %Quitamos los ticks y labels del eje 'x' de las figuras
     set(gca,'xlabel',[],'XTick',[],'Fontsize',10,'FontName','Arial')
     box off
     %Retomamos el tick y label de la primera figura
     set(h(1),'XTick',25:25:250)
-    xlabel(h(1),'Tiempo','Fontsize',15,'FontName','Arial','FontWeight', 'bold')
+    xlabel(h(1),'Tiempo [ms]','Fontsize',15,'FontName','Arial','FontWeight', 'bold')
 end
 
 %-------------------------------------------------------------------
+%TIEMPOS DE ARRIBO
 
+%Distancias fuente-receptor
+      for j=1:rec/2
+          D1(1,j)= (((ix-nab-(j*srec))^2 + (iz-lr)^2)^(1/2)) * dx ; %distancia fuente-receptor G3-G6 metros
+          D12R(1,j)= (((nx-nab-(j*srec)-ix)^2 + (iz-lr)^2)^(1/2)) * dx ; %distancia G6-G10
+          D12= fliplr(D12R);
+      end 
+         
+%Tiempos de arribo
+ %ONDA DIRECTA   
+        for j=1:rec/2
+        T1(1,j)=(D1(1,j)/v1)*1000;
+        T12(1,j)=(D12(1,j)/v1)*1000;
+        end
+            disp 'Tiempos de arribo [ms]' 
+            disp 'Geófonos G1-G6'
+            disp(T1)
+            disp 'Geófonos G7-G12' 
+            disp (T12) 
+
+ %------------------------------------------------------------------------------------------------     
+      
+      
 %REFERENCIAS:
 
 %Alvarado, A. (2019). Analogía entre la propagación de ondas viscoelásticas y electromagnéticas: 
