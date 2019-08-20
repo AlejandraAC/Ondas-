@@ -1,7 +1,7 @@
-       %UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO. FACULTAD DE INGENIERÍA
-                    %CÓDIGO BASADO Y MODIFICADO DE J.CARCIONE, 2015. 
-       %ELABORADO POR ALVARADO CONTRERAS AEJANDRA PARA OBTENER EL TÍTULO DE
-                      %INGENIERA GEOFÍSICA (Alvarado, 2019)
+                  %UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO. FACULTAD DE INGENIERÍA
+                           %CÓDIGO BASADO Y MODIFICADO DE J.CARCIONE, 2015. 
+               %ELABORADO POR ALVARADO CONTRERAS AEJANDRA PARA OBTENER EL TÍTULO DE
+                                %INGENIERA GEOFÍSICA (Alvarado, 2019)
  
 %Este código 2D simula la propagación de ondas viscoelásticas SH y de ondas electromagnéticas del modo TM, 
 %a partir de la correspondencia entre sus valores de campo y propiedades del medio.
