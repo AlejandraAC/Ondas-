@@ -433,9 +433,9 @@ for n=1:250
         %  caxis([-5e-10 5e-10]) %s12 <-> E3
          %  caxis([-5e-10 5e-10]) %s32 <-> (-E1)
           %Titulos 
-          title(['Campo Magnético H_2 en t = ' num2str(a) ' [ns]' ],'Fontsize',17,'FontName','Arial', 'FontWeight', 'bold', 'HorizontalAlignment', 'Center')
-        %  title(['Campo Eléctrico E_3 en t = ' num2str(a) ' [ns]'],'Fontsize',17,'FontName','Arial', 'FontWeight', 'bold','HorizontalAlignment','center')
-         %  title(['Campo Eléctrico -E_1 en t=' num2str(a) '[ns]'],'Fontsize',17,'FontName','Arial', 'FontWeight', 'bold','HorizontalAlignment','center')
+          title(['Campo Magnetico H_2 en t = ' num2str(a) ' [ns]' ],'Fontsize',17,'FontName','Arial', 'FontWeight', 'bold', 'HorizontalAlignment', 'Center')
+        %  title(['Campo Electrico E_3 en t = ' num2str(a) ' [ns]'],'Fontsize',17,'FontName','Arial', 'FontWeight', 'bold','HorizontalAlignment','center')
+         %  title(['Campo Electrico -E_1 en t=' num2str(a) '[ns]'],'Fontsize',17,'FontName','Arial', 'FontWeight', 'bold','HorizontalAlignment','center')
              
          %Imprimir y guardar imagenes
        print(n,'-dpng');
