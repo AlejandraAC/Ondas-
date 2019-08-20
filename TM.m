@@ -1,14 +1,14 @@
-        %UNIVERSIDAD NACIONAL AUT”NOMA DE M…XICO. FACULTAD DE INGENIERÕA
-                    %C”DIGO BASADO Y MODIFICADO DE J.CARCIONE, 2015. 
-       %ELABORADO POR ALVARADO CONTRERAS AEJANDRA PARA OBTENER EL TÕTULO DE
-                      %INGENIERA GEOFÕSICA (Alvarado, 2019)
+       %UNIVERSIDAD NACIONAL AUT√ìNOMA DE M√âXICO. FACULTAD DE INGENIER√çA
+                    %C√ìDIGO BASADO Y MODIFICADO DE J.CARCIONE, 2015. 
+       %ELABORADO POR ALVARADO CONTRERAS AEJANDRA PARA OBTENER EL T√çTULO DE
+                      %INGENIERA GEOF√çSICA (Alvarado, 2019)
  
-%Este cÛdigo 2D simula la propagaciÛn de ondas viscoel·sticas SH y de ondas electromagnÈticas del modo TM, 
+%Este c√≥digo 2D simula la propagaci√≥n de ondas viscoel√°sticas SH y de ondas electromagn√©ticas del modo TM, 
 %a partir de la correspondencia entre sus valores de campo y propiedades del medio.
 
 %-------------------------------------------------------------------------------------------------------
-%CASO ELECTROMAGN…TICO. MODELACI”N DE LA PROPAGACI”N DE ONDAS TM EN EL SUBSUELO DEL VALLE DE
-%KONDRATOWA EN LAS MONTA—AS TATRAS, POLONIA (Tomecka y col,(2017).
+%CASO ELECTROMAGN√âTICO. MODELACI√ìN DE LA PROPAGACI√ìN DE ONDAS TM EN EL SUBSUELO DEL VALLE DE
+%KONDRATOWA EN LAS MONTA√ëAS TATRAS, POLONIA (Tomecka y col,(2017).
 %-------------------------------------------------------------------------------------------------------
 
 %-------------------------------------------------------------------------------------------------------
@@ -29,9 +29,10 @@ nab = 50 ; %ancho de las fronteras absorbentes (nodos)
 nx = tend + (2*nab); %numero de nodos en x [m] (filas) %LM
 nz = tend + (2*nab); %numero de nodos en z [m] (columnas) %LM
 
-%UbicaciÛn de las lineas receptoras y del contacto en el modelo geolÛgico
-cont= 180 ; %contacto entre capas (nodos)
-lr= 140;  %linea de receptores en el mallado (nodos)
+%Ubicaci√≥n de las lineas receptoras y del contacto en el modelo geol√≥gico
+cont=180 ; %contacto entre capas (nodos)
+lr=140;  %linea de receptores en el mallado (nodos)
+rr=138; %ubicaci√≥n de las letras de receptores (nodos)
 
 %--------------------------------------------------------------------
 
@@ -43,15 +44,17 @@ nstep=250; %numero de muestras de tiempo %tiemp de muestreo 150 ns
 nsp=nstep; % Cada nsp pasos se almacenara un snapshot
 
     %ubicacion de la fuente
-    ix=204; %(nodos) 
+     ix=204; %(nodos) R5 y R6
+     %ix=78;  %R1 (nodos)
+    % ix=330; %R10 %(nodos)
     iz=160; %(nodos)profundidad de la fuente
 
 %--------------------------------------------------------------------
 
-%PAR¡METROS DEL MODELO GEOL”GICO
+%PAR√ÅMETROS DEL MODELO GEOL√ìGICO
 
 % Inicializacion de las propiedades
-%PROPIEDADES ACUSTICAS y su correspondencia a PROPIEDADES ELECTROMAGNETICAS
+%PROPIEDADES VISCOELASTICAS y su correspondencia a PROPIEDADES ELECTROMAGNETICAS
 mu = zeros(nx,nz); %mu(rigidez) <-------> 1/permitividad dielectrica 
 rho = zeros(nx,nz); %rho(densidad) <--------> permeabilidad magnetica
 eta = zeros(nx,nz); %eta(viscosidad) <---------> 1/conductividad
@@ -78,9 +81,9 @@ for i=1:nx
     end
 end 
 
-%Intervalo entre nodos
-vmin = min(v1,v3); %Se selecciona la velocidad mÌnima de las dos capas
-lambdamin = vmin/freq; %Se calcula la longitud de onda mÌnima
+%Intervalo entre nodos en metros
+vmin = min(v1,v3); %Se selecciona la velocidad m√≠nima de las dos capas
+lambdamin = vmin/freq; %Se calcula la longitud de onda m√≠nima
 dx = lambdamin/9; %intervalo entre nodos en x, (m)
 dz = lambdamin/9; %intervalo entre nodos en z, (m)
 
@@ -105,7 +108,7 @@ nw=nw2/2; %se divide a la mitad nw para su posterior uso en el metodo de RG
 
 %-------------------------------------------------------------------------
 
-%PAR¡METROS DE LOS M…TODO NUM…RICOS
+%PAR√ÅMETROS DE LOS M√âTODO NUM√âRICOS
 
 %Pesos de cuarto orden referentes al metodo de diferencias finitas
 x1 = 9/(8*dx);
@@ -114,11 +117,11 @@ z1 = 9/(8*dz);
 z2 = -1/(24*dz);
 
 % Se inicializan las variables de campo
-%COMPONENTES DE CAMPO ACUSTICO <-----------> CAMPO ELECTROMAGNETICO
+%COMPONENTES DE CAMPO VISCOELASTICO <-----------> CAMPO ELECTROMAGNETICO
 v2 = zeros(nx,nz); %velocidad <---------> Campo magnetico H2 
 s12 = zeros(nx,nz); %Esfuerzo s12 <-------> Campo electrico -E1
 s32 = zeros(nx,nz); %Esfuerzo s32 <------> Campo electrico E3
- s = zeros(nstep,rec); %Matriz de sismogramas 
+s = zeros(nstep,rec); %Matriz de radargramas 
  
 %------------------------------------------------------------------------
 
@@ -163,7 +166,7 @@ for n=1:250
     %METODO DE RUNGE-KUTTA
     
     %Este metodo resuelve las derivadas temporales de los valores de campo
-    %magnÈtico y elÈctrico para ondas TM
+    %magn√©tico y el√©ctrico para ondas TM
     
     %vt^(n+1)= vt^n + dt/6 (D1 + 2D2 + 2D3 + D4)
     %D1= H(v^n)+ f^n
@@ -362,7 +365,7 @@ for n=1:250
        
     %-----------------------------------------------------------------
     
-    %MATRIZ DE RADIOGRAMAS
+    %MATRIZ DE RADARGRAMAS
                for j=1:rec
                 s(n,j)=v2(nab+(j*srec),lr); %v2 <-> H2
                end 
@@ -376,22 +379,25 @@ for n=1:250
         a=(dt*n)*(10^9);
         %Escribir el numero de snapshot en curso
         disp('Snapshot'),n;
+        
         %Se crea una ventana de figura
         n=figure; 
-        %Se crea un vector con el tamaÒo de la matriz correspondiente
-           [A,B]=size(transpose(v2));  %campo magnÈtico v2 <-> H2
-         %  [A,B]=size(transpose(s12));  %s12 <-> E3
-        %   [A,B]=size(transpose(s32));   %s32 <-> (-E1)
+        %Se crea un vector con el tama√±o de la matriz correspondiente
+            [A,B]=size(transpose(v2));  %campo magn√©tico v2 <-> H2
+       %    [A,B]=size(transpose(s12));  %s12 <-> E3
+       %    [A,B]=size(transpose(s32));   %s32 <-> (-E1)
          %Asignamos el rango de los ejes de la grafica en metros.
          x=(1:1:A)*dx;
-         y=(1:1:B)*dx;
-         %Se crea una cuadricula 2D basada en 'x' y 'y' 
-         [X,Y]=meshgrid(x,y);
+         z=(1:1:B)*dz;
+         %Se crea una cuadricula 2D basada en 'x' y 'z' 
+         [X,Z]=meshgrid(x,z);
+         
          %Se grafican los valores de la matriz 
-           imagesc(x,y,transpose(v2)) %campo magnÈtico v2 <-> H2
-        %  imagesc(x,y,transpose(s12)) %s12 <-> E3
-         %  imagesc(x,y,transpose(s32))  %s32 <-> (-E1)
+          imagesc(x,z,transpose(v2)) %campo magn√©tico v2 <-> H2
+      %   imagesc(x,z,transpose(s12)) %s12 <-> E3
+       %  imagesc(x,z,transpose(s32))  %s32 <-> (-E1)
          hold on;
+         
          %Se grafica el contacto (linea horizontal)
          p0= plot([1*dx B*dx],[cont*dx cont*dx],'g','LineWidth',2);
          %Se dibujan las fronteras absorbentes
@@ -400,31 +406,39 @@ for n=1:250
              plot([1*dx B*dx], [(nx-nab)*dx (nx-nab)*dx], 'b','LineWidth',2);
             %lineas verticales
              plot([nab*dx nab*dx], [1*dx A*dx], 'b','LineWidth',2);
-             plot([(nx-nab)*dx (nx-nab)*dx], [1*dx A*dx], 'b','LineWidth',2);
+             plot([(nz-nab)*dx (nz-nab)*dx], [1*dx A*dx], 'b','LineWidth',2);
          %Se grafican y nombran los receptores
          for i=1:rec
             p4= plot([((nab+srec)*dx) (nab+(i*srec))*dx],[lr*dx lr*dx],'rv','MarkerFaceColor','r','MarkerSize',8);
-            text((nab+(i*srec))*dx,14,['R' num2str(i)],'HorizontalAlignment','center', 'VerticalAlignment','bottom','fontsize',8,'FontWeight', 'bold')
+            text((nab+(i*srec))*dx,rr*dx,['R' num2str(i)],'HorizontalAlignment','center', 'VerticalAlignment','bottom','fontsize',8,'FontWeight', 'bold')
          end
+         
          %Formato de imagen
-            axis('ij')  %Direccionn inversa. El eje 'y' es vertical y los valores aumentan de arriba a abajo.  
+            axis('ij')  %Direccionn inversa. El eje 'z' es vertical y los valores aumentan de arriba a abajo.  
+            %Barra de colores
             colorbar %mostrar barra de colores
-            xlabel('Distancia [m]','Fontsize',15,'FontWeight','bold' ) %nombre y tamaÒo de ejes
+           %Poner t√≠tulo a la barra de colores
+            hcb=colorbar;
+            title(hcb,'A / m','Fontsize',16,'FontName','Arial', 'FontWeight', 'bold'); %campo magn√©tico
+         %  title(hcb,'V / m','Fontsize',16,'FontName','Arial', 'FontWeight', 'bold'); %campo electrico
+           
+           %nombres y tama√±os de los ejes
+            xlabel('Distancia [m]','Fontsize',15,'FontWeight','bold' ) %nombre y tama√±o de ejes
             ylabel('Profundidad [m]','Fontsize',15,'FontWeight', 'bold')
              %colocar legendas en la grafica
-            legend([p0 p3 p4],'Contacto entre capas 19.8[m]','Fronteras Absorbentes','Receptores a 15.4[m]','Location','southeast','fontsize',10)
-        %    legend([p0 p1 p2 p3 p4],'Contacto entre capas ','Distancia Transmisor-Receptor','Dipolo Transmisor', 'Fronteras Absorbentes','Receptores','Location','southeast','fontsize',10)
+            legend([p0 p3 p4],'Contacto entre capas 19.9[m]','Fronteras Absorbentes','Receptores a 15.5[m]','Location','southeast','fontsize',10)
+     
            %Escalas 
-           caxis([-5e-12 5e-12]) %campo magnÈtico v2 <-> H2
-         % caxis([-5e-10 5e-10]) %s12 <-> E3
-        %   caxis([-5e-10 5e-10]) %s32 <-> (-E1)
+           caxis([-5e-12 5e-12]) %campo magn√©tico v2 <-> H2
+        %  caxis([-5e-10 5e-10]) %s12 <-> E3
+         %  caxis([-5e-10 5e-10]) %s32 <-> (-E1)
           %Titulos 
-         % title(['Campo MagnÈtico H_2 en t=' num2str(a) '[ns]'],'Fontsize',19,'FontName','Arial', 'FontWeight', 'bold','FontAngle','italic','HorizontalAlignment','center')
-           title(['Campo ElÈctrico E_3 en t=' num2str(a) '[ns]'],'Fontsize',19,'FontName','Arial', 'FontWeight', 'bold','FontAngle','italic','HorizontalAlignment','center')
-           %title(['Campo ElÈctrico -E_1 en t=' num2str(a) '[ns]'],'Fontsize',19,'FontName','Arial', 'FontWeight', 'bold','FontAngle','italic','HorizontalAlignment','center')
+          title(['Campo Magn√©tico H_2 en t = ' num2str(a) ' [ns]' ],'Fontsize',17,'FontName','Arial', 'FontWeight', 'bold', 'HorizontalAlignment', 'Center')
+        %  title(['Campo El√©ctrico E_3 en t = ' num2str(a) ' [ns]'],'Fontsize',17,'FontName','Arial', 'FontWeight', 'bold','HorizontalAlignment','center')
+         %  title(['Campo El√©ctrico -E_1 en t=' num2str(a) '[ns]'],'Fontsize',17,'FontName','Arial', 'FontWeight', 'bold','HorizontalAlignment','center')
              
          %Imprimir y guardar imagenes
-        print(n,'-dpng');
+       print(n,'-dpng');
     end   
 end
 
@@ -452,9 +466,10 @@ end
 
 %------------------------------------------------------------------------------------------------------------------- -         
 
+%----------------------------------------------------------------------------------------
 %REFERENCIAS
 
-%Alvarado, A. (2019). AnalogÌa entre la propagaciÛn de ondas viscoel·sticas y electromagnÈticas: 
+%Alvarado, A. (2019). Analog√≠a entre la propagaci√≥n de ondas viscoel√°sticas y electromagn√©ticas: 
 %Desarrollo de un prototipo computacional 2D. Tesis de licenciatura, UNAM, Ciudad Universitaria, Cd. Mx.
 
 %Carcione, J. (2015). Wave Fields in Real Media Wave Propagation in Anisotropic,
