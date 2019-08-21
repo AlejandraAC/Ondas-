@@ -446,10 +446,12 @@ end
 h=zeros(1,rec); 
 hold off
 
+NTicks=10; % Numero de ticks en X
+
 for j=1:rec
 %Posicionamos las figuras de cada traza 
     h(j)= subplot('position', [0.1, ((1/(rec+2)))*j, 0.7, 1/(rec+2)]); %[left bottom width high]  
-    plot(h(j),s(:,j));
+    plot(h(j),[0:length(s(:,1))/(length(s(:,1))-1):length(s(:,1))]*dt*1e9,s(:,j));
     %Titulo general de la figura 
     sgtitle('Radargrama','Fontsize',20,'FontName','Arial', 'FontWeight', 'bold','FontAngle','italic');
     %Nombramos a los ejes 'y' de cada figura
@@ -460,8 +462,9 @@ for j=1:rec
     set(gca,'xlabel',[],'XTick',[],'Fontsize',10,'FontName','Arial')
     box off
     %Retomamos el tick y label de la primera figura
-    set(h(1),'XTick',(25:25:250));
-    xlabel(h(1),'Muestras','Fontsize',15,'FontName','Arial','FontWeight', 'bold')
+    %set(h(1),'XTick',(0:dt*10/15:length(s(:,1))*dt*10));
+    set(h(1),'XTick',[0:length(s(:,1))/NTicks:length(s(:,j))]*dt*1e9);
+    xlabel(h(1),'Tiempo [ns]','Fontsize',15,'FontName','Arial','FontWeight', 'bold')
 end
 
 %------------------------------------------------------------------------------------------------------------------- -         
